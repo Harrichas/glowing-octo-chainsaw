@@ -5,6 +5,7 @@ import Journals from "./pages/Journals";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
+import Oauth from "./pages/Oauth";
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
           {/* <Route exact path="/books/:id"> */}
           <Route exact path="/journals/:id">
             <Detail />
+          </Route>
+
+          <Route exact path="/auth">
+            <Oauth />
           </Route>
 
           <Route>
