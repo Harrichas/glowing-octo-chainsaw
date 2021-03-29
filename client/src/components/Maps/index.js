@@ -23,6 +23,7 @@ class Maps extends Component {
     
     static propTypes = {
         place: PropTypes.string.isRequired,
+        center: PropTypes.object.isRequired,
     }
 
     render() {
@@ -30,15 +31,15 @@ class Maps extends Component {
             <div style={{ height: '600px', width: '100%' , padding: "10px"}}>
                 <GoogleMapReact
                     bootstrapURLKeys={{key: GOOGLE_MAPS_API_KEY}}
-                    defaultCenter={this.props.center}
+                    // defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
-                    // center={this.state.center}
+                    center={this.props.center}
                     onChildMouseEnter={this.onChildMouseEnter}
                     onChildMouseLeave={this.onChildMouseLeave}
                 >
-                    {/* <AnyReactComponent
+                    <AnyReactComponent
                         text={this.props.place}
-                    /> */}
+                    />
                 </GoogleMapReact>
             </div>
         );

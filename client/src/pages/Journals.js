@@ -8,34 +8,16 @@ import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 
 import GoogleMapReact from 'google-map-react';
-
-
 import Maps from "../components/Maps";
 
-// FOR ANOTHER MAPS NPM
-// import { Map, GoogleMapReact, Marker } from 'google-maps-react';
-// import MapContainer from "../components/Maps";
-
-
-// let map;
-// let service;
-// let infowindow;
-
-let geoSearch = {
-    center: {
-        lat: "",
-        lng: ""
-    },
-    place: "",
-};
 
 
 function Journals() {
 
-
     // Setting our component's initial state
     const [journals, setJournals] = useState([])
     const [formObject, setFormObject] = useState({})
+    const [geoSearch, setGeoSearch] = useState({})
 
     // Load all journals and store them with setJournals
     useEffect(() => {
@@ -62,8 +44,6 @@ function Journals() {
     function handleInputChange(event) {
         const { name, value } = event.target;
         setFormObject({ ...formObject, [name]: value })
-
-        // getLatLng(formObject.place);
     };
 
     // When the form is submitted, use the API.saveBook method to save the book data
@@ -84,36 +64,6 @@ function Journals() {
 
     };
 
-    ////////////////////////////////////////////////////////////////////////////////////////
-
-    // add function to find geolocation of the place lat long
-    // then add into the formObject or another object call placeGeo
-    // before pass to Map component
-
-    // const placeSearch = {};
-    // const geoSearchResult = {
-
-    //     // center: {
-    //     //     lat: 13.736717,
-    //     //     lng: 100.523186
-    //     // },
-    //     // place: 'Thailand',
-
-    //     center: {
-    //         lat: 66.160507,
-    //         lng: -153.369141
-    //     },
-    //     place: 'Alaska',
-
-    // center: {
-    //             lat: 52.3555,
-    //             lng: 1.1743
-    //         },
-    //         place: 'England',
-
-    // }
-
-    ////////////////////////////////////////////////////////////////////////////////////////
     const geoSearchResult = (placeSearch) => {
         let lat, lng;
 
@@ -123,76 +73,24 @@ function Journals() {
                 lat = results[0].geometry.location.lat();
                 lng = results[0].geometry.location.lng();
 
-                console.log(`placeSearch=${placeSearch}`);
-                console.log(`lat=${lat}`);
-                console.log(`lng=${lng}`);
+                // console.log(`placeSearch=${placeSearch}`);
+                // console.log(`lat=${lat}`);
+                // console.log(`lng=${lng}`);
 
-                let geoSearch = {
+                setGeoSearch({
                     center: {
                         "lat": lat,
-                        "lng": lng
+                        "lng": lng,
                     },
                     "place": placeSearch,
-                }
-
-                console.log(`geoSearch.center.lat=${geoSearch.center.lat}`);
-                console.log(`geoSearch.place=${geoSearch.place}`);
-
-                return geoSearch;
-
+                })
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
         });
     }
 
-
-    console.log(geoSearch);
-    console.log(`geoSearch.center.lat=${geoSearch.center.lat}`);
-    console.log(`geoSearch.place=${geoSearch.place}`);
-    ////////////////////////////////////////////////////////////////////////////////////////
-
-
-    // let placeSearch = formObject.place;
-    // function geoLocationSearch(placeSearch) {
-
-    //     console.log(placeSearch);
-
-    //     // infowindow = new google.maps.InfoWindow();
-    //     var map = new google.maps.Map(document.getElementById("map"));
-
-    //     const request = {
-    //         query: placeSearch,
-    //         fields: ["name", "geometry"]
-    //     };
-
-    //     const service = new google.maps.places.PlacesService();
-    //     service.findPlaceFromQuery(request, (results, status) => {
-    //         if (status === google.maps.places.PlacesServiceStatus.OK) {
-    //             console.log("results.length = " + results.length);
-
-    //             for (let i = 0; i < results.length; i++) {
-
-    //                 var latitude = results[i].geometry.location.lat();
-    //                 var longitude = results[i].geometry.location.lng();
-
-    //                 // Make an Object
-    //                 const geoSearchResult = {
-    //                     center: {
-    //                         lat: latitude,
-    //                         lng: longitude
-    //                     },
-    //                     place: placeSearch,
-    //                 }
-
-    //             }
-    //         }
-    //     });
-
-    // };
-
-    ////////////////////////////////////////////////////////////////////////////////////////
-
+    // console.log(geoSearch.center);
 
     return (
         <Container fluid>
@@ -206,9 +104,9 @@ function Journals() {
                     </Jumbotron>
 
                     <div>
-                        <Maps id="map" center={geoSearchResult.center} place={geoSearchResult.place} />
+                        {/* <Maps id="map" center={{lat: 46.227638, lng: 2.213749}} place="France" /> */}
+                        <Maps id="map" center={geoSearch.center} place={geoSearch.place} />
                     </div>
-
 
                     <form>
                         <Input
