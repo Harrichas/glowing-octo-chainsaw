@@ -7,12 +7,15 @@ import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 
-import GoogleMapReact from 'google-map-react';
+// import GoogleMapReact from 'google-map-react';
 import Maps from "../components/Maps";
 
 
 
 function Journals() {
+
+    let googleMap;
+
 
     // Setting our component's initial state
     const [journals, setJournals] = useState([])
@@ -62,6 +65,8 @@ function Journals() {
 
         geoSearchResult(formObject.place);
 
+        console.log(journals);
+
     };
 
     const geoSearchResult = (placeSearch) => {
@@ -69,9 +74,18 @@ function Journals() {
 
         new window.google.maps.Geocoder().geocode({ 'address': `${placeSearch}` }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
-                // createGoogleMap(results[0].geometry.location);
+                // console.log(`Geocoder results[0].address_components[0].long_name ${results[0].address_components[0].long_name}`);
+                // console.log(`Geocoder results[0].formatted_address ${results[0].formatted_address}`);
+                console.log(`Geocoder results[0].types[0] ${results[0].types[0]}`);
+                console.log(`Geocoder results[0].placeId ${results[0].place_id}`);
                 lat = results[0].geometry.location.lat();
                 lng = results[0].geometry.location.lng();
+
+                new window.google.maps.Marker({
+                    map: googleMap,
+                    animation: window.google.maps.Animation.DROP,
+                    position: results[0].geometry.location
+                });
 
                 // console.log(`placeSearch=${placeSearch}`);
                 // console.log(`lat=${lat}`);

@@ -4,6 +4,9 @@ import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 
+import Maps from "../components/Maps";
+
+
 function Detail(props) {
   const [journal, setJournal] = useState({})
 
