@@ -5,6 +5,7 @@ const journalSchema = new Schema({
   place: { type: String, required: true },
   date: { type: Date, default: Date.now },
   placeDetail: String,
+  // center: Object,
   
 });
 

@@ -7,12 +7,20 @@ import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 
+// import GoogleMapReact from 'google-map-react';
+import Maps from "../components/Maps";
+
+
+
 function Journals() {
+
+    let googleMap;
 
 
     // Setting our component's initial state
     const [journals, setJournals] = useState([])
     const [formObject, setFormObject] = useState({})
+    const [geoSearch, setGeoSearch] = useState({})
 
     // Load all journals and store them with setJournals
     useEffect(() => {
@@ -54,21 +62,65 @@ function Journals() {
                 .then(res => loadJournals())
                 .catch(err => console.log(err));
         }
+
+        geoSearchResult(formObject.place);
+
+        console.log(journals);
+
     };
 
+    const geoSearchResult = (placeSearch) => {
+        let lat, lng;
 
+        new window.google.maps.Geocoder().geocode({ 'address': `${placeSearch}` }, function (results, status) {
+            if (status === window.google.maps.GeocoderStatus.OK) {
+                // console.log(`Geocoder results[0].address_components[0].long_name ${results[0].address_components[0].long_name}`);
+                // console.log(`Geocoder results[0].formatted_address ${results[0].formatted_address}`);
+                console.log(`Geocoder results[0].types[0] ${results[0].types[0]}`);
+                console.log(`Geocoder results[0].placeId ${results[0].place_id}`);
+                lat = results[0].geometry.location.lat();
+                lng = results[0].geometry.location.lng();
 
+                new window.google.maps.Marker({
+                    map: googleMap,
+                    animation: window.google.maps.Animation.DROP,
+                    position: results[0].geometry.location
+                });
 
+                // console.log(`placeSearch=${placeSearch}`);
+                // console.log(`lat=${lat}`);
+                // console.log(`lng=${lng}`);
+
+                setGeoSearch({
+                    center: {
+                        "lat": lat,
+                        "lng": lng,
+                    },
+                    "place": placeSearch,
+                })
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+
+    // console.log(geoSearch.center);
 
     return (
         <Container fluid>
 
             <Row>
-                <Col size="md-6">
+
+                <Col size="md-9">
 
                     <Jumbotron>
                         <h1>Start Adding New Trip Here</h1>
                     </Jumbotron>
+
+                    <div>
+                        {/* <Maps id="map" center={{lat: 46.227638, lng: 2.213749}} place="France" /> */}
+                        <Maps id="map" center={geoSearch.center} place={geoSearch.place} />
+                    </div>
 
                     <form>
                         <Input
@@ -98,7 +150,7 @@ function Journals() {
                 </Col>
 
 
-                <Col size="md-6 sm-12">
+                <Col size="md-3 sm-12">
                     <Jumbotron>
                         <h1>Places On My List</h1>
                     </Jumbotron>
