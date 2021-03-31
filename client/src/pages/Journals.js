@@ -8,6 +8,8 @@ import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 
 import Maps from "../components/Maps";
+import GoogleMapReact from 'google-map-react';
+
 
 
 
@@ -54,7 +56,7 @@ function Journals() {
         event.preventDefault();
         let lat, lng;
 
-        new window.google.maps.Geocoder().geocode({ 'address': formObject.place }, function (results, status) {
+        googleMap = new window.google.maps.Geocoder().geocode({ 'address': formObject.place }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
                 // console.log(`Geocoder results[0].formatted_address ${results[0].formatted_address}`);
                 console.log(`results[0].geometry.location ${results[0].geometry.location}`);
@@ -66,7 +68,8 @@ function Journals() {
                 new window.google.maps.Marker({
                     map: googleMap,
                     animation: window.google.maps.Animation.DROP,
-                    position: results[0].geometry.location
+                    position: {lat, lng},
+                    title: formObject.place
                 });
 
                 if (formObject.place && formObject.date) {

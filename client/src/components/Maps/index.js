@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import PropTypes from 'prop-types';
 
+import Marker from '../Marker';
+
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
@@ -35,9 +37,15 @@ class Maps extends Component {
                     onChildMouseEnter={this.onChildMouseEnter}
                     onChildMouseLeave={this.onChildMouseLeave}
                 >
-                    <AnyReactComponent
+                    {/* <AnyReactComponent
                         text={this.props.place}
+                    /> */}
+
+                    <Marker
+                        lat={this.props.center.lat}
+                        lng={this.props.center.lng} 
                     />
+
                 </GoogleMapReact>
             </div>
         );
