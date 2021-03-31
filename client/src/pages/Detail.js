@@ -19,6 +19,9 @@ function Detail(props) {
       .catch(err => console.log(err));
   }, [])
 
+  // console.log(`Details.js journal.lat=${journal.lat}`)
+  // console.log(`Details.js journal.lng=${journal.lng}`)
+
   return (
       <Container fluid>
         <Row>
@@ -28,6 +31,9 @@ function Detail(props) {
                 {journal.place} on {journal.date}
               </h1>
             </Jumbotron>
+
+            <Maps id="map" center={{"lat":journal.lat, "lng":journal.lng}} place ={journal.place} />
+
           </Col>
         </Row>
         <Row>
