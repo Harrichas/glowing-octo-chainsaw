@@ -7,7 +7,6 @@ import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 
-// import GoogleMapReact from 'google-map-react';
 import Maps from "../components/Maps";
 
 
@@ -20,7 +19,7 @@ function Journals() {
     // Setting our component's initial state
     const [journals, setJournals] = useState([])
     const [formObject, setFormObject] = useState({})
-    const [geoSearch, setGeoSearch] = useState({})
+    const [latestPlace, setLatestPlace] = useState({})
 
     // Load all journals and store them with setJournals
     useEffect(() => {
@@ -53,33 +52,16 @@ function Journals() {
     // Then reload journals from the database
     function handleFormSubmit(event) {
         event.preventDefault();
-        if (formObject.place && formObject.date) {
-            API.saveJournal({
-                place: formObject.place,
-                date: formObject.date,
-                placeDetail: formObject.placeDetail
-            })
-                .then(res => loadJournals())
-                .catch(err => console.log(err));
-        }
-
-        geoSearchResult(formObject.place);
-
-        console.log(journals);
-
-    };
-
-    const geoSearchResult = (placeSearch) => {
         let lat, lng;
 
-        new window.google.maps.Geocoder().geocode({ 'address': `${placeSearch}` }, function (results, status) {
+        new window.google.maps.Geocoder().geocode({ 'address': formObject.place }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
-                // console.log(`Geocoder results[0].address_components[0].long_name ${results[0].address_components[0].long_name}`);
                 // console.log(`Geocoder results[0].formatted_address ${results[0].formatted_address}`);
-                console.log(`Geocoder results[0].types[0] ${results[0].types[0]}`);
-                console.log(`Geocoder results[0].placeId ${results[0].place_id}`);
+                console.log(`results[0].geometry.location ${results[0].geometry.location}`);
                 lat = results[0].geometry.location.lat();
                 lng = results[0].geometry.location.lng();
+                // console.log(lat);
+                // console.log(lng);
 
                 new window.google.maps.Marker({
                     map: googleMap,
@@ -87,24 +69,76 @@ function Journals() {
                     position: results[0].geometry.location
                 });
 
-                // console.log(`placeSearch=${placeSearch}`);
-                // console.log(`lat=${lat}`);
-                // console.log(`lng=${lng}`);
+                if (formObject.place && formObject.date) {
+                    API.saveJournal({
+                        place: formObject.place,
+                        date: formObject.date,
+                        placeDetail: formObject.placeDetail,
+                        // lat: 51.509865,
+                        // lng: -0.118092,
+                        "lat": lat,
+                        "lng": lng,
+                    })
+                        .then(res => loadJournals())
+                        .catch(err => console.log(err));
+                }
 
-                setGeoSearch({
-                    center: {
+                setLatestPlace({
+                    "center": {
                         "lat": lat,
                         "lng": lng,
                     },
-                    "place": placeSearch,
-                })
-            } else {
-                alert('Geocode was not successful for the following reason: ' + status);
+                    "place": formObject.place,
+                });
             }
         });
-    }
 
-    // console.log(geoSearch.center);
+    };
+
+    // function geoSearchResult(placeSearch) {
+    //     let lat, lng;
+
+    //     new window.google.maps.Geocoder().geocode({ 'address': `${placeSearch}` }, function (results, status) {
+    //         if (status === window.google.maps.GeocoderStatus.OK) {
+    //             // console.log(`Geocoder results[0].formatted_address ${results[0].formatted_address}`);
+    //             console.log(`results[0].geometry.location ${results[0].geometry.location}`);
+    //             lat = results[0].geometry.location.lat();
+    //             lng = results[0].geometry.location.lng();
+
+    //             new window.google.maps.Marker({
+    //                 map: googleMap,
+    //                 animation: window.google.maps.Animation.DROP,
+    //                 position: results[0].geometry.location
+    //             });
+
+    //             setLatestPlace({
+    //                 "center": {
+    //                     "lat": lat,
+    //                     "lng": lng,
+    //                 },
+    //                 "place": placeSearch,
+    //             });
+
+
+    //         } else {
+    //             alert('Geocode was not successful for the following reason: ' + status);
+    //         }
+    //     });
+
+    //     // console.log(`latestPlace.center=${latestPlace.center}`)
+    //     // console.log(`latestPlace.place=${latestPlace.place}`)
+    //     // return latestPlace;
+    // }
+
+
+    ///// OUTSIDE FUNCTION LOOP CONST WILL SHOW VALUE HERE /////
+    // console.log(latestPlace.center);
+    // console.log(latestPlace.place);
+    // console.log(`latestPlace.center=${latestPlace.center}`)
+    // console.log(`latestPlace.place=${latestPlace.place}`)
+    // console.log(journals);
+
+
 
     return (
         <Container fluid>
@@ -119,7 +153,7 @@ function Journals() {
 
                     <div>
                         {/* <Maps id="map" center={{lat: 46.227638, lng: 2.213749}} place="France" /> */}
-                        <Maps id="map" center={geoSearch.center} place={geoSearch.place} />
+                        <Maps id="map" center={latestPlace.center} place={latestPlace.place} />
                     </div>
 
                     <form>

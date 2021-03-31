@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
+// const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
 
 class Maps extends Component {
 
