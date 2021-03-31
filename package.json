@@ -21,11 +21,13 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "cookie-session": "^1.4.0",
+    "dayjs": "^1.10.4",
+    "dotenv": "^8.2.0",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
+    "is-buffer": "^2.0.5",
     "mongoose": "^5.3.16",
-    "cookie-session": "^1.4.0",
-    "dotenv": "^8.2.0",
     "passport": "^0.4.1",
     "passport-google-oauth2": "^0.2.0"
   }

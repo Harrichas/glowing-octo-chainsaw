@@ -2,10 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const journalSchema = new Schema({
+  trip: { type: String, required: true },
   place: { type: String, required: true },
-  date: { type: Date, default: Date.now },
+  date: { type: String, required: true },
+  // date: { type: Date, default: Date.now },
   placeDetail: String,
-  // center: Object,
+  lat: Number,
+  lng: Number,
   
 });
 
