@@ -5,18 +5,17 @@ import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import { TripName, Input, TextArea, FormBtn } from "../components/Form";
+
+import dayjs from 'dayjs';
 
 import Maps from "../components/Maps";
 import GoogleMapReact from 'google-map-react';
 
 
-
-
 function Journals() {
 
     let googleMap;
-
 
     // Setting our component's initial state
     const [journals, setJournals] = useState([])
@@ -65,17 +64,23 @@ function Journals() {
                 // console.log(lat);
                 // console.log(lng);
 
-                new window.google.maps.Marker({
-                    map: googleMap,
-                    animation: window.google.maps.Animation.DROP,
-                    position: {lat, lng},
-                    title: formObject.place
-                });
+                // new window.google.maps.Marker({
+                //     map: googleMap,
+                //     animation: window.google.maps.Animation.DROP,
+                //     position: {lat, lng},
+                //     title: formObject.place
+                // });
+
+                console.log(`formObject.date=${formObject.date}`);
+                let formatted_date = dayjs(formObject.date).format('MMMM DD, YYYY')
+                console.log(`formatted_date=${formatted_date}`)
 
                 if (formObject.place && formObject.date) {
                     API.saveJournal({
+                        trip: formObject.trip,
                         place: formObject.place,
-                        date: formObject.date,
+                        date: formatted_date,
+                        // date: dayjs('2019-01-25').format('DD/MM/YYYY'),
                         placeDetail: formObject.placeDetail,
                         // lat: 51.509865,
                         // lng: -0.118092,
@@ -139,7 +144,7 @@ function Journals() {
     // console.log(latestPlace.place);
     // console.log(`latestPlace.center=${latestPlace.center}`)
     // console.log(`latestPlace.place=${latestPlace.place}`)
-    // console.log(journals);
+    console.log(journals);
 
 
 
@@ -162,21 +167,29 @@ function Journals() {
                     <form>
                         <Input
                             onChange={handleInputChange}
+                            name="trip"
+                            placeholder="add trip name (required)"
+                        />
+                        <Input
+                            disabled={!(formObject.trip)}
+                            onChange={handleInputChange}
                             name="place"
                             placeholder="add place (required)"
                         />
                         <Input
+                            disabled={!(formObject.trip)}
                             onChange={handleInputChange}
                             type="date"
                             name="date"
                         />
                         <TextArea
+                            disabled={!(formObject.trip)}
                             onChange={handleInputChange}
                             name="placeDetail"
                             placeholder="Tell us about this place (required)"
                         />
                         <FormBtn
-                            disabled={!(formObject.place && formObject.date && formObject.placeDetail)}
+                            disabled={!(formObject.trip && formObject.place && formObject.date && formObject.placeDetail)}
                             onClick={handleFormSubmit}
                         >
                             Submit Journal
@@ -198,7 +211,7 @@ function Journals() {
                                 <ListItem key={journal._id}>
                                     <Link to={"/journals/" + journal._id}>
                                         <strong>
-                                            {journal.place} on {journal.date}
+                                        {journal.trip} : {journal.place} on {journal.date}
                                         </strong>
                                     </Link>
                                     <DeleteBtn onClick={() => deleteJournal(journal._id)} />
