@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Marker from '../Marker';
 
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+// const AnyReactComponent = ({ text }) => <div>{text}</div>;
 const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
 // const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
 
@@ -16,7 +16,7 @@ class Maps extends Component {
             lat: 30.267153,
             lng: -97.743060
         },
-        zoom: 7,
+        zoom: 12,
         mapTypeId: 'satellite',
         place:'Austin'
     };
@@ -45,7 +45,6 @@ class Maps extends Component {
                         lat={this.props.center.lat}
                         lng={this.props.center.lng} 
                     />
-
                 </GoogleMapReact>
             </div>
         );

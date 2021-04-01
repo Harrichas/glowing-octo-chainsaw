@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
-import { TripName, Input, TextArea, FormBtn } from "../components/Form";
+import { Input, TextArea, FormBtn } from "../components/Form";
 
 import dayjs from 'dayjs';
 
 import Maps from "../components/Maps";
-import GoogleMapReact from 'google-map-react';
+// import GoogleMapReact from 'google-map-react';
+
+const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
 
 
 function Journals() {
 
     let googleMap;
+    const googleMapRef = useRef();
+
 
     // Setting our component's initial state
     const [journals, setJournals] = useState([])
@@ -25,7 +29,30 @@ function Journals() {
     // Load all journals and store them with setJournals
     useEffect(() => {
         loadJournals()
+
+        const googleMapScript = document.createElement("script");
+        googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
+        googleMapScript.async = true;
+        window.document.body.appendChild(googleMapScript);
+        googleMapScript.addEventListener("load", () => {
+            // getLatLng();
+        });
+
+        
+
     }, [])
+
+
+    const createGoogleMap = (coordinates) => {
+        googleMap = new window.google.maps.Map(googleMapRef.current, {
+            zoom: 6,
+            center: {
+                lat: coordinates.lat(),
+                lng: coordinates.lng(),
+            },
+            disableDefaultUI: true,
+        });
+    };
 
     // Loads all journals and sets them to journals
     function loadJournals() {
@@ -34,6 +61,8 @@ function Journals() {
                 setJournals(res.data)
             )
             .catch(err => console.log(err));
+
+
     };
 
     // Deletes a book from the database with a given id, then reloads journals from the db
@@ -54,27 +83,32 @@ function Journals() {
     function handleFormSubmit(event) {
         event.preventDefault();
         let lat, lng;
+        
 
         googleMap = new window.google.maps.Geocoder().geocode({ 'address': formObject.place }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
-                // console.log(`Geocoder results[0].formatted_address ${results[0].formatted_address}`);
                 console.log(`results[0].geometry.location ${results[0].geometry.location}`);
                 lat = results[0].geometry.location.lat();
                 lng = results[0].geometry.location.lng();
                 // console.log(lat);
                 // console.log(lng);
 
-                // new window.google.maps.Marker({
-                //     map: googleMap,
-                //     animation: window.google.maps.Animation.DROP,
-                //     position: {lat, lng},
-                //     title: formObject.place
-                // });
+                createGoogleMap(results[0].geometry.location);
+                lat = results[0].geometry.location.lat();
+                lng = results[0].geometry.location.lng();
+                new window.google.maps.Marker({
+                    position: { lat, lng },
+                    map: googleMap,
+                    animation: window.google.maps.Animation.DROP,
+                    title: `${formObject.place}`,
+                });
 
+                // CONVERT DATE FORMAT BY DAYJS
                 console.log(`formObject.date=${formObject.date}`);
                 let formatted_date = dayjs(formObject.date).format('MMMM DD, YYYY')
                 console.log(`formatted_date=${formatted_date}`)
 
+                // SAVE LATEST PLACE INTO JOURNAL DATABASE
                 if (formObject.place && formObject.date) {
                     API.saveJournal({
                         trip: formObject.trip,
@@ -91,6 +125,7 @@ function Journals() {
                         .catch(err => console.log(err));
                 }
 
+                // SET LATEST PLACE INPUT AS A VAIABLE
                 setLatestPlace({
                     "center": {
                         "lat": lat,
@@ -103,47 +138,6 @@ function Journals() {
 
     };
 
-    // function geoSearchResult(placeSearch) {
-    //     let lat, lng;
-
-    //     new window.google.maps.Geocoder().geocode({ 'address': `${placeSearch}` }, function (results, status) {
-    //         if (status === window.google.maps.GeocoderStatus.OK) {
-    //             // console.log(`Geocoder results[0].formatted_address ${results[0].formatted_address}`);
-    //             console.log(`results[0].geometry.location ${results[0].geometry.location}`);
-    //             lat = results[0].geometry.location.lat();
-    //             lng = results[0].geometry.location.lng();
-
-    //             new window.google.maps.Marker({
-    //                 map: googleMap,
-    //                 animation: window.google.maps.Animation.DROP,
-    //                 position: results[0].geometry.location
-    //             });
-
-    //             setLatestPlace({
-    //                 "center": {
-    //                     "lat": lat,
-    //                     "lng": lng,
-    //                 },
-    //                 "place": placeSearch,
-    //             });
-
-
-    //         } else {
-    //             alert('Geocode was not successful for the following reason: ' + status);
-    //         }
-    //     });
-
-    //     // console.log(`latestPlace.center=${latestPlace.center}`)
-    //     // console.log(`latestPlace.place=${latestPlace.place}`)
-    //     // return latestPlace;
-    // }
-
-
-    ///// OUTSIDE FUNCTION LOOP CONST WILL SHOW VALUE HERE /////
-    // console.log(latestPlace.center);
-    // console.log(latestPlace.place);
-    // console.log(`latestPlace.center=${latestPlace.center}`)
-    // console.log(`latestPlace.place=${latestPlace.place}`)
     console.log(journals);
 
 
@@ -159,10 +153,12 @@ function Journals() {
                         <h1>Start Adding New Trip Here</h1>
                     </Jumbotron>
 
-                    <div>
-                        {/* <Maps id="map" center={{lat: 46.227638, lng: 2.213749}} place="France" /> */}
-                        <Maps id="map" center={latestPlace.center} place={latestPlace.place} />
-                    </div>
+
+                    <div
+                        id="google-map"
+                        ref={googleMapRef}
+                        style={{ width: "100%", height: "300px" }}
+                    />
 
                     <form>
                         <Input
@@ -211,7 +207,7 @@ function Journals() {
                                 <ListItem key={journal._id}>
                                     <Link to={"/journals/" + journal._id}>
                                         <strong>
-                                        {journal.trip} : {journal.place} on {journal.date}
+                                            {journal.trip} : {journal.place} on {journal.date}
                                         </strong>
                                     </Link>
                                     <DeleteBtn onClick={() => deleteJournal(journal._id)} />
@@ -230,3 +226,17 @@ function Journals() {
 }
 
 export default Journals
+
+
+// PREVIOUSLY USED ON MAP
+{ /*
+
+    <div>
+    <Maps id="map" center={{lat: 46.227638, lng: 2.213749}} place="France" />
+    <Maps id="map" center={latestPlace.center} place={latestPlace.place} />
+    </div>
+    
+    
+    */ }
+
+
