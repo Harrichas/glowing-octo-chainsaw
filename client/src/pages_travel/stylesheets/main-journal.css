@@ -53,7 +53,7 @@ ul a {
     box-shadow: 0 0 0 8px #f8f8f8;
     background-color: rgba(255, 255, 255, 0.20);
     }
-}
+
 
 
 p, .journalButtons {
@@ -83,19 +83,19 @@ img{
     float: left;
 }
 
-h3, img, {
-    /* width: 51%; */
+/* h3, img, {
+     width: 51%; 
     margin: 0;
     position:  center;
-}
+} */
 
 .card {
     background-color: transparent !important;
 }
 
-p {
+/* p {
    
-}
+} */
 
 
 
