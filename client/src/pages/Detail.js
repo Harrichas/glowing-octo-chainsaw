@@ -8,19 +8,19 @@ import Maps from "../components/Maps";
 
 
 function Detail(props) {
-  const [journal, setJournal] = useState({})
+  const [clickPlace, setClickPlace] = useState({})
 
   // When this component mounts, grab the journal with the _id of props.match.params.id
   // e.g. localhost:3000/journals/599dcb67f0f16317844583fc
   const {id} = useParams()
   useEffect(() => {
     API.getJournal(id)
-      .then(res => setJournal(res.data))
+      .then(res => setClickPlace(res.data))
       .catch(err => console.log(err));
   }, [])
 
-  // console.log(`Details.js journal.lat=${journal.lat}`)
-  // console.log(`Details.js journal.lng=${journal.lng}`)
+  // console.log(`Details.js clickPlace.lat=${clickPlace.lat}`)
+  // console.log(`Details.js clickPlace.lng=${clickPlace.lng}`)
 
   return (
       <Container fluid>
@@ -28,11 +28,11 @@ function Detail(props) {
           <Col size="md-12">
             <Jumbotron>
               <h1>
-                {journal.place} on {journal.date}
+                {clickPlace.place} on {clickPlace.date}
               </h1>
             </Jumbotron>
 
-            <Maps id="map" center={{"lat":journal.lat, "lng":journal.lng}} place ={journal.place} />
+            <Maps id="map" center={clickPlace.center} place ={clickPlace.place} />
 
           </Col>
         </Row>
@@ -41,7 +41,7 @@ function Detail(props) {
             <article>
               <h1>About This Place</h1>
               <p>
-                {journal.placeDetail}
+                {clickPlace.placeDetail}
               </p>
             </article>
           </Col>

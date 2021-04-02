@@ -84,8 +84,13 @@ function Journals() {
                         placeDetail: formObject.placeDetail,
                         // lat: 51.509865,
                         // lng: -0.118092,
-                        "lat": lat,
-                        "lng": lng,
+                        center: {
+                            "lat": lat,
+                            "lng": lng
+                        }
+
+                        // "lat": lat,
+                        // "lng": lng,
                     })
                         .then(res => loadJournals())
                         .catch(err => console.log(err));
@@ -103,47 +108,7 @@ function Journals() {
 
     };
 
-    // function geoSearchResult(placeSearch) {
-    //     let lat, lng;
-
-    //     new window.google.maps.Geocoder().geocode({ 'address': `${placeSearch}` }, function (results, status) {
-    //         if (status === window.google.maps.GeocoderStatus.OK) {
-    //             // console.log(`Geocoder results[0].formatted_address ${results[0].formatted_address}`);
-    //             console.log(`results[0].geometry.location ${results[0].geometry.location}`);
-    //             lat = results[0].geometry.location.lat();
-    //             lng = results[0].geometry.location.lng();
-
-    //             new window.google.maps.Marker({
-    //                 map: googleMap,
-    //                 animation: window.google.maps.Animation.DROP,
-    //                 position: results[0].geometry.location
-    //             });
-
-    //             setLatestPlace({
-    //                 "center": {
-    //                     "lat": lat,
-    //                     "lng": lng,
-    //                 },
-    //                 "place": placeSearch,
-    //             });
-
-
-    //         } else {
-    //             alert('Geocode was not successful for the following reason: ' + status);
-    //         }
-    //     });
-
-    //     // console.log(`latestPlace.center=${latestPlace.center}`)
-    //     // console.log(`latestPlace.place=${latestPlace.place}`)
-    //     // return latestPlace;
-    // }
-
-
-    ///// OUTSIDE FUNCTION LOOP CONST WILL SHOW VALUE HERE /////
-    // console.log(latestPlace.center);
-    // console.log(latestPlace.place);
-    // console.log(`latestPlace.center=${latestPlace.center}`)
-    // console.log(`latestPlace.place=${latestPlace.place}`)
+    
     console.log(journals);
 
 
