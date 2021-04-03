@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const cookieSession = require('cookie-session'); // cookie session
 require('./config/passport.js');
 const routes = require("./routes");
+const path = require('path')
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -33,6 +34,10 @@ app.use(routes);
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/journaldb");
+
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 // Start the API server
 app.listen(PORT, function() {
