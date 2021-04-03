@@ -7,6 +7,7 @@ import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import Oauth from "./pages/Oauth";
 
+
 function App() {
   return (
     <Router>
@@ -16,19 +17,17 @@ function App() {
 
         <Switch>
 
-          {/* <Route exact path={["/", "/books"]}> */}
-          <Route exact path={["/", "/journals"]}>
-            {/* <Books /> */}
+
+          <Route exact path="/">
+            <Oauth />
+          </Route>
+
+          <Route exact path="/journals">
             <Journals />
           </Route>
 
-          {/* <Route exact path="/books/:id"> */}
           <Route exact path="/journals/:id">
             <Detail />
-          </Route>
-
-          <Route exact path="/auth">
-            <Oauth />
           </Route>
 
           <Route>
