@@ -1,7 +1,6 @@
 const passport = require("passport");
 const router = require("express").Router();
 
-// Matches with "/api/journals"
 router.route("/")
   .get(passport.authenticate('google', {
     scope: ['profile', 'email']
