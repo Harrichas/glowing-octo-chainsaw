@@ -22,10 +22,6 @@ function App() {
             <Oauth />
           </Route>
 
-          {/* <Route exact path={["/home"]}>
-            <Home />
-          </Route> */}
-
           <Route exact path="/journals">
             <Journals />
           </Route>
@@ -33,8 +29,6 @@ function App() {
           <Route exact path="/journals/:id">
             <Detail />
           </Route>
-
-
 
           <Route>
             <NoMatch />
