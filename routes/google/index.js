@@ -12,7 +12,7 @@ router
     failureRedirect: '/failed'
   }), function (req, res) {
     // Successful authentication redirect back to homepage
-    res.redirect('/');
+    res.redirect('/journals');
   });
 
 module.exports = router;
