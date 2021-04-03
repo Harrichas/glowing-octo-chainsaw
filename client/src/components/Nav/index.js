@@ -1,15 +1,18 @@
 import React from "react";
+import "./style.css"
 
 function Nav() {
   return (
-    <nav 
-      // className="navbar navbar-expand-lg navbar-dark bg-success"
-      style={{ height: 150, clear: "both", paddingTop: 40, textAlign: "center" , paddingRight: 0}}
-      >
-      <a className="navbar-brand" href="/">
+    <header class="header" style={{ height: 150, clear: "both", paddingTop: 40, textAlign: "center" , paddingRight: 0}}>
+      <a href="/" className="navbar-brand">
         <h1>LET'S GO PLACES!</h1>
-      </a>
-    </nav>
+        </a>
+      <input class="menu-btn" type="checkbox" id="menu-btn"/>
+      <label class="menu-icon" for="menu-btn"><span class="nav-icon"></span></label>
+      <ul class="menu">
+        <li class="profile"><a href="logout">Logout</a><img src="" /></li>
+      </ul>
+    </header>
   );
 }
 
