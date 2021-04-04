@@ -1,16 +1,17 @@
 const router = require("express").Router();
 const journalsController = require("../../controllers/journalsController");
+const isUserLoggedIn = require("../../config/middleware/isUserLoggedIn");
 
 // Matches with "/api/journals"
 router.route("/")
-  .get(journalsController.findAll)
-  .post(journalsController.create);
+  .get(isUserLoggedIn, journalsController.findAll)
+  .post(isUserLoggedIn, journalsController.create);
 
 // Matches with "/api/journals/:id"
 router
   .route("/:id")
-  .get(journalsController.findById)
-  .put(journalsController.update)
-  .delete(journalsController.remove);
+  .get(isUserLoggedIn, journalsController.findById)
+  .put(isUserLoggedIn, journalsController.update)
+  .delete(isUserLoggedIn, journalsController.remove);
 
 module.exports = router;

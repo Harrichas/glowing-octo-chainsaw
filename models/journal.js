@@ -10,7 +10,8 @@ const journalSchema = new Schema({
   center: {
     lat: { type: Number, required: true },
     lng: { type: Number, required: true },
-  }
+  },
+  googleId: { type: String, required: false }
 });
 
 const Journal = mongoose.model("Journal", journalSchema);

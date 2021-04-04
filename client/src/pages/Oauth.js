@@ -1,10 +1,29 @@
-import React from "react";
-import GoogleLogin from "react-google-login";
-import axios from "axios"
+import React, {useState} from "react";
+import API  from "../utils/API";
+import AuthManager from "../utils/AuthManager";
+
 
 function Oauth() {
+
+  const [isUserLoggedIn, undefined] = useState(AuthManager.isAuthenticated());
+
+  const loadJournals = () => {
+    API.getJournals().then(response => {
+      console.log(response.data);
+    });
+  }
+
   return (
-    <a href="http://localhost:3001/google">login</a>// !!!!!!!! change to heroku                                  
+    <>
+      {
+        isUserLoggedIn ?  
+          <a href="http://localhost:3001/google/logout">Logout</a> :
+          <a href="http://localhost:3001/google">Login</a>
+      }
+
+      <br />
+      <button onClick={loadJournals}>Load Journals</button>
+    </>
   );
 }
 
