@@ -10,7 +10,10 @@ import { List } from "../components/List";
 // const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
 
 function Detail(props) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
   const [clickPlace, setClickPlace] = useState({})
 
   // When this component mounts, grab the journal with the _id of props.match.params.id
@@ -26,6 +29,7 @@ function Detail(props) {
   // console.log(`Details.js clickPlace.lng=${clickPlace.lng}`)
 
   return (
+<<<<<<< HEAD
     <Container fluid>
       <Row>
         <Col size="md-12">
@@ -44,6 +48,25 @@ function Detail(props) {
           <List>
               {/* <h1>About This Place</h1> */}
               <h4>{clickPlace.place} - {clickPlace.date}</h4>
+=======
+      <Container fluid>
+        <Row>
+          <Col size="md-12">
+            <Jumbotron>
+              <h1>
+                {clickPlace.place} on {clickPlace.date}
+              </h1>
+            </Jumbotron>
+
+            <Maps id="map" center={clickPlace.center} place ={clickPlace.place} />
+
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-10 md-offset-1">
+            <article>
+              <h1>About This Place</h1>
+>>>>>>> origin/main
               <p>
                 {clickPlace.placeDetail}
               </p>

@@ -1,7 +1,7 @@
 const passport = require("passport");
 const router = require("express").Router();
+const axios = require('axios')
 
-// Matches with "/api/journals"
 router.route("/")
   .get(passport.authenticate('google', {
     scope: ['profile', 'email']
@@ -13,7 +13,10 @@ router
     failureRedirect: '/failed'
   }), function (req, res) {
     // Successful authentication redirect back to homepage
-    res.redirect('/');
+    //res.redirect('/journals');
+    // axios.get("http://localhost:3000/journals");
+    res.writeHead(302, {Location: "http://localhost:3000/journals"});//!!!!!!! change to heroku
+    res.end();
   });
 
 module.exports = router;
