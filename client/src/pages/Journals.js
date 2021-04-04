@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
-import GMap from "../components/GMap";
-
 
 import dayjs from 'dayjs';
 
@@ -21,6 +19,33 @@ function Journals() {
 
     let googleMap;
     const googleMapRef = useRef();
+    // Initialize and add the map
+    let map;
+    let service;
+    let infowindow;
+
+
+    // let userListArr = [];
+    let userListArr = [
+        {
+            "place": "The University of Texas at Austin",
+            // "latlang": (30.285159344585896, -97.73407849215118),
+            "lat": 30.285159344585896,
+            "lang": -97.73407849215118,
+        },
+        {
+            "place": "Franklin Barbecue",
+            "latlang": (30.27029481906284, -97.7313370539002),
+            "lat": 30.27029481906284,
+            "lang": -97.7313370539002,
+        },
+    ];
+
+    let newAddArr = [];
+    let geoLocationObj = {};
+    let memberEmail;
+    let i;
+
 
     // Setting our component's initial state
     const [journals, setJournals] = useState([])
@@ -38,9 +63,80 @@ function Journals() {
         googleMapScript.async = true;
         window.document.body.appendChild(googleMapScript);
         googleMapScript.addEventListener("load", () => {
+            initMap(userListArr)
         });
+
     }, [])
 
+///////////////////////////////////////////////////////////
+
+
+    function initMap() {
+        const googleMap = new window.google.maps.Map(googleMapRef.current, {
+
+            // This will take effect when there are multiple places
+            zoom: 0,
+            // center: { lat: -25.344, lng: 131.036 },
+            // center: new google.maps.LatLng(37.0902, -95.7129)
+            // center: new window.google.maps.LatLng(37.0902, -95.7129)
+            mapTypeId: 'hybrid'
+        });
+
+        // Drop pins on all locations
+        const latlngbounds = new window.google.maps.LatLngBounds();
+
+        if (userListArr.length === 1) {
+            // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
+            const markerLocation = new window.google.maps.LatLng(
+                userListArr[0].lat,
+                userListArr[0].lang
+            );
+
+            const googleMap = new window.google.maps.Map(googleMapRef.current, {
+                zoom: 18,
+                mapTypeId: 'satellite',
+
+                // center: new window.google.maps.LatLng(37.0902, -95.7129)
+                center: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lang)
+
+            });
+
+            const marker = new window.google.maps.Marker({
+                map: googleMap,
+                // position: new window.google.maps.LatLng(37.0902, -95.7129),
+                position: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lang),
+            });
+
+        } else {
+
+            for (i = 0; i < userListArr.length; i++) {
+                // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
+                const markerLocation = new window.google.maps.LatLng(
+                    userListArr[i].lat,
+                    userListArr[i].lang
+                );
+
+                console.log(userListArr[i].lat);
+                console.log(userListArr[i].lang);
+
+                // eslint-disable-next-line no-unused-vars
+                const marker = new window.google.maps.Marker({
+                    // position: { lat: -25.344, lng: 131.036 },
+                    position: markerLocation,
+                    map: googleMap
+                });
+
+                console.log(`markerLocation=${markerLocation}`);
+
+                latlngbounds.extend(markerLocation);
+            }
+            // map.fitBounds(latlngbounds);
+            googleMap.fitBounds(latlngbounds);
+
+        }
+    }
+
+///////////////////////////////////////////////////////////
 
     const createGoogleMap = (coordinates) => {
         googleMap = new window.google.maps.Map(googleMapRef.current, {
@@ -138,7 +234,7 @@ function Journals() {
 
     }; // HANDLE SUBMIT
 
-    // console.log(journals);  // ARRAY OBJECT FULL HERE
+    console.log(journals);  // ARRAY OBJECT FULL HERE
 
 
 
@@ -153,7 +249,7 @@ function Journals() {
                         <h1>Start Adding New Trip Here</h1>
                     </Jumbotron>
 
-                    {/* <GMap journals={journals} /> */}
+
                     <div
                         id="google-map"
                         ref={googleMapRef}
