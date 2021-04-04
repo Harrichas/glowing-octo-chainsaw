@@ -9,9 +9,7 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 
 import dayjs from 'dayjs';
 
-import Maps from "../components/Maps";
-import GM from "../components/GoogleMap";
-
+// import Maps from "../components/Maps";
 // import GoogleMapReact from 'google-map-react';
 
 const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
@@ -21,6 +19,32 @@ function Journals() {
 
     let googleMap;
     const googleMapRef = useRef();
+    // Initialize and add the map
+    let map;
+    let service;
+    let infowindow;
+
+
+    // let userListArr = [];
+    let userListArr = [
+        {
+            "place": "The University of Texas at Austin",
+            // "latlang": (30.285159344585896, -97.73407849215118),
+            "lat": 30.285159344585896,
+            "lang": -97.73407849215118,
+        },
+        {
+            "place": "Franklin Barbecue",
+            "latlang": (30.27029481906284, -97.7313370539002),
+            "lat": 30.27029481906284,
+            "lang": -97.7313370539002,
+        },
+    ];
+
+    let newAddArr = [];
+    let geoLocationObj = {};
+    let memberEmail;
+    let i;
 
 
     // Setting our component's initial state
@@ -31,33 +55,109 @@ function Journals() {
     // Load all journals and store them with setJournals
     useEffect(() => {
         loadJournals()
-        
+
+        // LOAD GOOGLE MAPS
+        const googleMapScript = document.createElement("script");
+        googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
+        googleMapScript.async = true;
+        window.document.body.appendChild(googleMapScript);
+        googleMapScript.addEventListener("load", () => {
 
 
-        // const googleMapScript = document.createElement("script");
-        // googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
-        // googleMapScript.async = true;
-        // window.document.body.appendChild(googleMapScript);
-        // googleMapScript.addEventListener("load", () => {
-        // // getLatLng();
-        // });
-        
-
-        
+            initMap(userListArr)
+        });
 
     }, [])
 
+///////////////////////////////////////////////////////////
 
-    // const createGoogleMap = (coordinates) => {
-    //     googleMap = new window.google.maps.Map(googleMapRef.current, {
-    //         zoom: 6,
-    //         center: {
-    //             lat: coordinates.lat(),
-    //             lng: coordinates.lng(),
-    //         },
-    //         disableDefaultUI: true,
-    //     });
-    // };
+
+
+
+    function initMap() {
+
+
+
+        const googleMap = new window.google.maps.Map(googleMapRef.current, {
+
+            // This will take effect when there are multiple places
+            zoom: 0,
+            // center: { lat: -25.344, lng: 131.036 },
+            // center: new google.maps.LatLng(37.0902, -95.7129)
+            // center: new window.google.maps.LatLng(37.0902, -95.7129)
+            mapTypeId: 'hybrid'
+        });
+
+        // Drop pins on all locations
+        const latlngbounds = new window.google.maps.LatLngBounds();
+
+        if (userListArr.length === 1) {
+            // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
+            const markerLocation = new window.google.maps.LatLng(
+                userListArr[0].lat,
+                userListArr[0].lang
+            );
+
+            const googleMap = new window.google.maps.Map(googleMapRef.current, {
+                zoom: 18,
+                mapTypeId: 'satellite',
+
+                // center: new window.google.maps.LatLng(37.0902, -95.7129)
+                center: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lang)
+
+            });
+
+            const marker = new window.google.maps.Marker({
+                map: googleMap,
+                // position: new window.google.maps.LatLng(37.0902, -95.7129),
+                position: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lang),
+            });
+
+        } else {
+
+            for (i = 0; i < userListArr.length; i++) {
+                // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
+                const markerLocation = new window.google.maps.LatLng(
+                    // working
+                    userListArr[i].lat,
+                    userListArr[i].lang
+                    // try journals
+                    // journals[i].center.lat,
+                    // journals[i].center.lng
+                );
+
+                // console.log(`userListArr[i].lat=${userListArr[i].lat}`);
+                // console.log(`userListArr[i].lang=${userListArr[i].lang}`);
+
+                // eslint-disable-next-line no-unused-vars
+                const marker = new window.google.maps.Marker({
+                    // position: { lat: -25.344, lng: 131.036 },
+                    position: markerLocation,
+                    map: googleMap
+                });
+
+                // console.log(`markerLocation=${markerLocation}`);
+
+                latlngbounds.extend(markerLocation);
+            }
+            // map.fitBounds(latlngbounds);
+            googleMap.fitBounds(latlngbounds);
+
+        }
+    }
+
+///////////////////////////////////////////////////////////
+
+    const createGoogleMap = (coordinates) => {
+        googleMap = new window.google.maps.Map(googleMapRef.current, {
+            zoom: 6,
+            center: {
+                lat: coordinates.lat(),
+                lng: coordinates.lng(),
+            },
+            disableDefaultUI: true,
+        });
+    };
 
     // Loads all journals and sets them to journals
     function loadJournals() {
@@ -67,14 +167,14 @@ function Journals() {
             )
             .catch(err => console.log(err));
 
-            // console.log(journals); // object empty here
+        // console.log(journals); // object empty here
 
     };
 
     // console.log(journals); // object full here
 
 
-    // Deletes a book from the database with a given id, then reloads journals from the db
+    // Deletes a journal from the database with a given id, then reloads journals from the db
     function deleteJournal(id) {
         API.deleteJournal(id)
             .then(res => loadJournals())
@@ -87,30 +187,28 @@ function Journals() {
         setFormObject({ ...formObject, [name]: value })
     };
 
-    // When the form is submitted, use the API.saveBook method to save the book data
+    // When the form is submitted, use the API.saveJournal method to save the journal data
     // Then reload journals from the database
     function handleFormSubmit(event) {
         event.preventDefault();
         let lat, lng;
-        
+
 
         googleMap = new window.google.maps.Geocoder().geocode({ 'address': formObject.place }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
                 console.log(`results[0].geometry.location ${results[0].geometry.location}`);
                 lat = results[0].geometry.location.lat();
                 lng = results[0].geometry.location.lng();
-        
+                // console.log(lat);
+                // console.log(lng);
 
-                // // createGoogleMap(results[0].geometry.location);
-                
-                // lat = results[0].geometry.location.lat();
-                // lng = results[0].geometry.location.lng();
-                // new window.google.maps.Marker({
-                //     position: { lat, lng },
-                //     map: googleMap,
-                //     animation: window.google.maps.Animation.DROP,
-                //     // title: `${formObject.place}`,
-                // });
+                createGoogleMap(results[0].geometry.location);
+
+                new window.google.maps.Marker({
+                    position: { lat, lng },
+                    map: googleMap,
+                    animation: window.google.maps.Animation.DROP,
+                });
 
                 // CONVERT DATE FORMAT BY DAYJS
                 console.log(`formObject.date=${formObject.date}`);
@@ -145,11 +243,9 @@ function Journals() {
             }
         });
 
-    };
+    }; // HANDLE SUBMIT
 
-    console.log(journals);
-    console.log(latestPlace);
-
+    // console.log(journals);  // ARRAY OBJECT FULL HERE
 
 
 
@@ -164,8 +260,12 @@ function Journals() {
                         <h1>Start Adding New Trip Here</h1>
                     </Jumbotron>
 
-                    <GM center={{lat: 46.227638, lng: 2.213749}} />
-                    
+
+                    <div
+                        id="google-map"
+                        ref={googleMapRef}
+                        style={{ width: "100%", height: "300px" }}
+                    />
 
                     <form>
                         <Input
@@ -233,17 +333,5 @@ function Journals() {
 }
 
 export default Journals
-
-
-// PREVIOUSLY USED ON MAP
-{ /*
-
-    <div>
-    <Maps id="map" center={{lat: 46.227638, lng: 2.213749}} place="France" />
-    <Maps id="map" center={latestPlace.center} place={latestPlace.place} />
-    </div>
-    
-    
-    */ }
 
 
