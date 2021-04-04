@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
-<<<<<<< HEAD
 import GMap from "../components/GMap";
 
 
@@ -16,11 +15,6 @@ import dayjs from 'dayjs';
 // import GoogleMapReact from 'google-map-react';
 
 const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
-=======
-import dayjs from 'dayjs';
-import Maps from "../components/Maps";
-
->>>>>>> origin/main
 
 
 function Journals() {
@@ -71,12 +65,9 @@ function Journals() {
 
     };
 
-<<<<<<< HEAD
     // console.log(journals); // object full here
 
 
-=======
->>>>>>> origin/main
     // Deletes a journal from the database with a given id, then reloads journals from the db
     function deleteJournal(id) {
         API.deleteJournal(id)
@@ -99,7 +90,6 @@ function Journals() {
 
         googleMap = new window.google.maps.Geocoder().geocode({ 'address': formObject.place }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
-<<<<<<< HEAD
                 console.log(`results[0].geometry.location ${results[0].geometry.location}`);
                 lat = results[0].geometry.location.lat();
                 lng = results[0].geometry.location.lng();
@@ -116,14 +106,6 @@ function Journals() {
 
                 // CONVERT DATE FORMAT BY DAYJS
                 console.log(`formObject.date=${formObject.date}`);
-=======
-                // console.log(`Geocoder results[0].formatted_address ${results[0].formatted_address}`);
-                // console.log(`results[0].geometry.location ${results[0].geometry.location}`);
-                lat = results[0].geometry.location.lat();
-                lng = results[0].geometry.location.lng();
-
-                // console.log(`formObject.date=${formObject.date}`);
->>>>>>> origin/main
                 let formatted_date = dayjs(formObject.date).format('MMMM DD, YYYY')
                 // console.log(`formatted_date=${formatted_date}`)
 
@@ -154,17 +136,9 @@ function Journals() {
             }
         });
 
-<<<<<<< HEAD
     }; // HANDLE SUBMIT
 
     // console.log(journals);  // ARRAY OBJECT FULL HERE
-=======
-    };
-
-
-    // console.log(journals);
-   
->>>>>>> origin/main
 
 
 
@@ -179,20 +153,12 @@ function Journals() {
                         <h1>Start Adding New Trip Here</h1>
                     </Jumbotron>
 
-<<<<<<< HEAD
                     {/* <GMap journals={journals} /> */}
                     <div
                         id="google-map"
                         ref={googleMapRef}
                         style={{ width: "100%", height: "300px" }}
                     />
-=======
-                    <div>
-                        {/* <Maps id="map" center={{lat: 46.227638, lng: 2.213749}} place="France" /> */}
-                        {/* <Maps id="map" center={latestPlace.center} place={latestPlace.place} /> */}
-                        <Maps id="map" center={latestPlace.center} place={latestPlace.place} journals={journals} />
-                    </div>
->>>>>>> origin/main
 
                     <form>
                         <Input

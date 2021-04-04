@@ -25,36 +25,34 @@ function Detail(props) {
   // console.log(`Details.js clickPlace.lng=${clickPlace.lng}`)
 
   return (
-      <Container fluid>
-        <Row>
-          <Col size="md-12">
-            <Jumbotron>
-              <h1>
-                {clickPlace.place} on {clickPlace.date}
-              </h1>
-            </Jumbotron>
+    <Container fluid>
+      <Row>
+        <Col size="md-12">
+          <Jumbotron>
+            <h1>
+              {clickPlace.place} on {clickPlace.date}
+            </h1>
+          </Jumbotron>
 
-            <Maps id="map" center={clickPlace.center} place ={clickPlace.place} />
-
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-10 md-offset-1">
-            <article>
-              <h1>About This Place</h1>
-              <p>
-                {clickPlace.placeDetail}
-              </p>
-
-          </List>
+          <Maps id="map" center={clickPlace.center} place={clickPlace.place} />
 
         </Col>
       </Row>
       <Row>
-        <Col size="md-2">
-          <Link to="/">← Back to Add more Places</Link>
+        <Col size="md-10 md-offset-1">
+          <article>
+            <h1>About This Place</h1>
+            <p>
+              {clickPlace.placeDetail}
+            </p>
+          </article>
         </Col>
       </Row>
+          <Row>
+            <Col size="md-2">
+              <Link to="/">← Back to Add more Places</Link>
+            </Col>
+          </Row>
     </Container>
   );
 }

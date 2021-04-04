@@ -16,15 +16,9 @@ class Maps extends Component {
             lat: 30.267153,
             lng: -97.743060
         },
-<<<<<<< HEAD
-        zoom: 12,
-        mapTypeId: 'satellite',
-        place:'Austin'
-=======
         zoom: 7,
         // mapTypeId: 'satellite',
         place: 'Austin'
->>>>>>> origin/main
     };
 
     static propTypes = {
