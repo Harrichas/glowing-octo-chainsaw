@@ -4,20 +4,20 @@ const db = require("../models");
 module.exports = {
   findAll: function(req, res) {
     db.Journal
-      .find(req.query)
+      .find({...req.query, googleId: req.user.id})
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
     db.Journal
-      .findById(req.params.id)
+      .find({_id: req.params.id, googleId: req.user.id})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
     db.Journal
-      .create(req.body)
+      .create({...req.body, googleId: req.user.id})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

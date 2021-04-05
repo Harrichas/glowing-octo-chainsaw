@@ -13,6 +13,7 @@ const journalSchema = new Schema({
   // },
   lat: Number,
   lng: Number,
+  googleId: { type: String, required: false }
 });
 
 const Journal = mongoose.model("Journal", journalSchema);
