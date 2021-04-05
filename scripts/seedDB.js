@@ -10,27 +10,22 @@ mongoose.connect(
 
 const journalSeed = [
   {
-    trip: "Austin Day Trip"
-    place: "UT Austin",
+    trip: "Europe Trip",
+    place: "France",
+    date: "April 07, 2021",
     placeDetail:
-      "The University of Texas at Austin, shortened to UT Austin, UT, or Texas, is a public research university in Austin, Texas and the flagship institution of the University of Texas System.",
-    date: new Date(Date.now()),
-    center: {
-      lat: 30.285159344585896, 
-      lng: -97.73407849215118
-    }
- 
+      "France, in Western Europe, encompasses medieval cities, alpine villages and Mediterranean beaches. Paris, its capital, is famed for its fashion houses, classical art museums including the Louvre and monuments like the Eiffel Tower. The country is also renowned for its wines and sophisticated cuisine. Lascaux’s ancient cave drawings, Lyon’s Roman theater and the vast Palace of Versailles attest to its rich history.",
+    lat: 46.70694479172703, 
+    lng: 2.204602773717257,
   },
   {
-    trip: "Austin Day Trip"
-    place: "Franklin Barbecue",
+    trip: "Europe Trip",
+    place: "Germany",
+    date: "April 07, 2021",
     placeDetail:
-      "Long lines form early for brisket, pulled pork & other smoked meats at this lunch-only spot.",
-    date: new Date(Date.now()),
-    center: {
-      lat: 30.27029481906284, 
-      lng: -97.7313370539002
-    }
+      "Germany is a Western European country with a landscape of forests, rivers, mountain ranges and North Sea beaches. It has over 2 millennia of history. Berlin, its capital, is home to art and nightlife scenes, the Brandenburg Gate and many sites relating to WWII. Munich is known for its Oktoberfest and beer halls, including the 16th-century Hofbräuhaus. Frankfurt, with its skyscrapers, houses the European Central Bank",
+    lat: 51.17994694443065,
+    lng: 9.784008822695007,
   },
 ];
 

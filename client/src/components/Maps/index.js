@@ -50,12 +50,15 @@ class Maps extends Component {
                         lat={15.8700}
                         lng={100.9925}
                     />
+<<<<<<< HEAD
+=======
                     <Marker
                         lat={19.61921214756764}
                         lng={102.65882834190207}
                     /> */}
 
 
+>>>>>>> origin/main
                 </GoogleMapReact>
             </div>
         );
