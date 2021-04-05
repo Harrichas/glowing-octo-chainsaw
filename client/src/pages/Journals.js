@@ -96,7 +96,6 @@ function Journals() {
                             loadJournals()
                             clearValue();
                         })
-
                         .catch(err => console.log(err));
                 }
             }

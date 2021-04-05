@@ -2,7 +2,6 @@ import React from "react";
 
 function Oauth() {
   return (
-    // <a href="http://localhost:3001/google">login</a>// !!!!!!!! change to heroku 
     <div className="row d-flex justify-content-center">
         <div class="col-md-4 col-offset-md-4 col-xs-12 mt-5">
             <a class="btn btn-lg btn-google btn-block btn-outline border rounded" href="/google">
