@@ -12,10 +12,12 @@ import GMaps from "../components/GMaps";
 function Detail() {
   const [clickPlace, setClickPlace] = useState({
     place: "",
-    center: {
-      lat: "",
-      lng: "",
-    },
+    // center: {
+    //   lat: "",
+    //   lng: "",
+    // },
+    lat: "",
+    lng: "",
   })
 
   // When this component mounts, grab the journal with the _id of props.match.params.id
@@ -30,19 +32,15 @@ function Detail() {
 
   console.log(clickPlace);
   console.log(`Details.js clickPlace.place=${clickPlace.place}`)
-  console.log(`Details.js clickPlace.center.lat=${clickPlace.center.lat}`)
-  console.log(`Details.js clickPlace.center.lng=${clickPlace.center.lng}`)
-  console.log(clickPlace.center.lat);
-  console.log(clickPlace.center.lng);
+  console.log(`Details.js clickPlace.lat=${clickPlace.lat}`)
+  console.log(`Details.js clickPlace.lng=${clickPlace.lng}`)
 
   const singlePlace = [
-    
+
     {
-    "place": clickPlace.place,
-    "lat": clickPlace.center.lat,
-    "lang": clickPlace.center.lng,
-    // "lat": 15.870032,
-    // "lang": 100.992541,
+      "place": clickPlace.place,
+      "lat": clickPlace.lat,
+      "lng": clickPlace.lng,
     },
   //   // {
   //   //   "place": "Singapore",

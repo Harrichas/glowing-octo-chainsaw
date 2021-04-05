@@ -26,20 +26,20 @@ function Journals() {
 
 
     // let userListArr = [];
-    let userListArr = [
-        {
-            "place": "The University of Texas at Austin",
-            // "latlang": (30.285159344585896, -97.73407849215118),
-            "lat": 30.285159344585896,
-            "lang": -97.73407849215118,
-        },
-        {
-            "place": "Franklin Barbecue",
-            "latlang": (30.27029481906284, -97.7313370539002),
-            "lat": 30.27029481906284,
-            "lang": -97.7313370539002,
-        },
-    ];
+    // let userListArr = [
+    //     {
+    //         "place": "The University of Texas at Austin",
+    //         // "latlang": (30.285159344585896, -97.73407849215118),
+    //         "lat": 30.285159344585896,
+    //         "lng": -97.73407849215118,
+    //     },
+    //     {
+    //         "place": "Franklin Barbecue",
+    //         "latlang": (30.27029481906284, -97.7313370539002),
+    //         "lat": 30.27029481906284,
+    //         "lng": -97.7313370539002,
+    //     },
+    // ];
 
 
 
@@ -63,7 +63,7 @@ function Journals() {
 
     }, [])
 
-///////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////
 
 
     // function initMap() {
@@ -131,15 +131,19 @@ function Journals() {
     //     }
     // }
 
-///////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////
 
     const createGoogleMap = (coordinates) => {
+        console.log("under createGoogleMap");
         googleMap = new window.google.maps.Map(googleMapRef.current, {
             zoom: 6,
             center: {
                 lat: coordinates.lat(),
                 lng: coordinates.lng(),
             },
+            // DONT USE THIS MAP WILL DISAPPEAR
+                // lat: coordinates.lat(),
+                // lng: coordinates.lng(),
             disableDefaultUI: true,
         });
     };
@@ -178,14 +182,13 @@ function Journals() {
         event.preventDefault();
         let lat, lng;
 
-
         googleMap = new window.google.maps.Geocoder().geocode({ 'address': formObject.place }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {
                 console.log(`results[0].geometry.location ${results[0].geometry.location}`);
                 lat = results[0].geometry.location.lat();
                 lng = results[0].geometry.location.lng();
-                // console.log(lat);
-                // console.log(lng);
+                console.log(lat);
+                console.log(lng);
 
                 createGoogleMap(results[0].geometry.location);
 
@@ -196,41 +199,41 @@ function Journals() {
                 });
 
                 // CONVERT DATE FORMAT BY DAYJS
-                console.log(`formObject.date=${formObject.date}`);
                 let formatted_date = dayjs(formObject.date).format('MMMM DD, YYYY')
-                // console.log(`formatted_date=${formatted_date}`)
 
                 // SAVE LATEST PLACE INTO JOURNAL DATABASE
                 if (formObject.place && formObject.date) {
+                    console.log(formObject.place);
+                    console.log(formObject.trip);
+                    console.log(formatted_date);
+                    console.log(formObject.placeDetail);
+                    console.log(lat);
+                    console.log(lng);
                     API.saveJournal({
                         trip: formObject.trip,
                         place: formObject.place,
                         date: formatted_date,
                         placeDetail: formObject.placeDetail,
-                        center: {
-                            "lat": lat,
-                            "lng": lng
-                        }
+                        "lat": lat,
+                        "lng": lng,
                     })
                         .then(res => loadJournals())
                         .catch(err => console.log(err));
                 }
 
                 // SET LATEST PLACE INPUT AS A VARIABLE
-                setLatestPlace({
-                    "center": {
-                        "lat": lat,
-                        "lng": lng,
-                    },
-                    "place": formObject.place,
-                });
+                // setLatestPlace([{
+                //     "lat": lat,
+                //     "lng": lng,
+                //     "place": formObject.place,
+                // }]);
             }
         });
 
     }; // HANDLE SUBMIT
 
     console.log(journals);  // ARRAY OBJECT FULL HERE
-    console.log(latestPlace);  // ARRAY OBJECT FULL HERE
+    // console.log(latestPlace);  // ARRAY OBJECT FULL HERE
 
 
 
@@ -245,7 +248,8 @@ function Journals() {
                         <h1>Start Adding New Trip Here</h1>
                     </Jumbotron>
 
-                    {/* <GMaps journals={journals} /> */}
+                    {/* <GMaps userListArr={journals} /> */}
+                    {/* <GMaps userListArr={latestPlace} /> */}
                     <div
                         id="google-map"
                         ref={googleMapRef}
@@ -309,6 +313,8 @@ function Journals() {
                     ) : (
                         <h3>No Results to Display</h3>
                     )}
+
+                    {/* <GMaps userListArr={journals} /> */}
                 </Col>
 
             </Row>
