@@ -7,10 +7,12 @@ const journalSchema = new Schema({
   date: { type: String, required: true },
   // date: { type: Date, default: Date.now },
   placeDetail: String,
-  center: {
-    lat: { type: Number, required: true },
-    lng: { type: Number, required: true },
-  }
+  // center: {
+  //   lat: { type: Number, required: true },
+  //   lng: { type: Number, required: true },
+  // },
+  lat: Number,
+  lng: Number,
 });
 
 const Journal = mongoose.model("Journal", journalSchema);
