@@ -24,7 +24,7 @@ function GMaps({ userListArr }) {
         const googleMap = new window.google.maps.Map(googleMapRef.current, {
 
             // This will take effect when there are multiple places
-            zoom: 0,
+            zoom: 15,
             mapTypeId: 'hybrid',
             // center: new window.google.maps.LatLng(37.0902, -95.7129)
         });
@@ -51,7 +51,7 @@ function GMaps({ userListArr }) {
             console.log(userListArr[0].lng);
 
             const googleMap = new window.google.maps.Map(googleMapRef.current, {
-                zoom: 4,
+                zoom: 19,
                 mapTypeId: 'hybrid',
                 // center: new window.google.maps.LatLng(37.0902, -95.7129)
                 center: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lng)
