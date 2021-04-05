@@ -7,10 +7,10 @@ function Nav() {
       <a href="/" className="navbar-brand">
         <h1>LET'S GO PLACES!</h1>
         </a>
-      <input className="menu-btn" type="checkbox" id="menu-btn"/>
-      <label className="menu-icon" for="menu-btn"><span className="nav-icon"></span></label>
-      <ul className="menu">
-        <li className="profile"><a href="logout">Logout</a><img src="" alt=""/></li>
+      <input class="menu-btn" type="checkbox" id="menu-btn"/>
+      <label class="menu-icon" for="menu-btn"><span class="nav-icon"></span></label>
+      <ul class="menu">
+        <li class="profile"><a href="/">Logout</a><img src="" /></li>
       </ul>
     </header>
   );
