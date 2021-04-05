@@ -51,6 +51,11 @@ function Journals() {
             .catch(err => console.log(err));
     }
 
+    function clearValue () {
+        document.getElementById("journal-form").reset();
+        setFormObject({});
+    }
+
     // Handles updating component state when the user types into the input field
     function handleInputChange(event) {
         const { name, value } = event.target;
@@ -87,7 +92,11 @@ function Journals() {
                         "lat": lat,
                         "lng": lng,
                     })
-                        .then(res => loadJournals())
+                        .then(res => {
+                            loadJournals()
+                            clearValue();
+                        })
+
                         .catch(err => console.log(err));
                 }
             }
@@ -105,7 +114,7 @@ function Journals() {
                         <h1>Start Adding New Trip Here</h1>
                     </Jumbotron>
                     <GMaps userListArr={journals} />
-                    <form>
+                    <form id="journal-form">
                         <Input
                             onChange={handleInputChange}
                             name="trip"
