@@ -15,12 +15,19 @@ const journalSeed = [
     trip: "Austin Trip",
     placeDetail:
       "The University of Texas at Austin, shortened to UT Austin, UT, or Texas, is a public research university in Austin, Texas and the flagship institution of the University of Texas System.",
+<<<<<<< HEAD
+    // date: new Date(Date.now()),
+    date: "April 07, 2021",
+    lat: 30.285159344585896, 
+    lng: -97.73407849215118
+=======
     date: new Date(Date.now()),
     center: {
       lat: 30.285159344585896, 
       lng: -97.73407849215118
     }
  
+>>>>>>> origin/main
   },
   {
     trip: "Austin Day Trip"
@@ -28,11 +35,17 @@ const journalSeed = [
     trip: "Austin Trip",
     placeDetail:
       "Long lines form early for brisket, pulled pork & other smoked meats at this lunch-only spot.",
+<<<<<<< HEAD
+    date: "April 07, 2021",
+    lat: 30.27029481906284, 
+    lng: -97.7313370539002
+=======
     date: new Date(Date.now()),
     center: {
       lat: 30.27029481906284, 
       lng: -97.7313370539002
     }
+>>>>>>> origin/main
   },
 ];
 

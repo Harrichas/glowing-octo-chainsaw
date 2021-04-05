@@ -38,44 +38,7 @@ function GMaps({ userListArr }) {
 
 
         // LANDING MAP AT US
-        if (userListArr.length === 0) {
-            // console.log(userListArr);
-            const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
-
-            const googleMap = new window.google.maps.Map(googleMapRef.current, {
-                zoom: 4,
-                mapTypeId: 'hybrid',
-                center: new window.google.maps.LatLng(37.0902, -95.7129)
-            });
-
-            const marker = new window.google.maps.Marker({
-                map: googleMap,
-                position: new window.google.maps.LatLng(37.0902, -95.7129),
-                title: "United States",
-            });
-
-            // // click marker to open info window
-            // marker.addListener("click", () => {
-            //     infowindow.open(googleMap, marker);
-            // });
-
-            // const contentString =
-            //     '<div id="content">' +
-            //     '<h6 id="firstHeading" class="firstHeading">United States</h6>' +
-            //     '<div id="bodyContent">' +
-            //     "<p>visited June 22, 2009</p>" +
-            //     '<a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-            //     "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
-            //     "</div>" +
-            //     "</div>";
-
-            // // FUTURE IMPROVE TO ADD INFOWINDOW
-            // const infowindow = new window.google.maps.InfoWindow({
-            //     content: contentString,
-            // });
-
-            // SINGLE LOCATIONS
-        } else if (userListArr.length === 1) {
+        if (userListArr.length === 1) {
             console.log(userListArr);
             // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
             const markerLocation = new window.google.maps.LatLng(

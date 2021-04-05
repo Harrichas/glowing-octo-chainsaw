@@ -31,13 +31,17 @@ class Maps extends Component {
             <div style={{ height: '600px', width: '100%', padding: "10px" }}>
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: GOOGLE_MAPS_API_KEY }}
+                    // defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
+                    // onChildMouseEnter={this.onChildMouseEnter}
+                    // onChildMouseLeave={this.onChildMouseLeave}
                     center={this.props.center}
-                >
 
+                >
                     {/* <AnyReactComponent
                         text={this.props.place}
                     /> */}
+
                     <Marker
                         lat={this.props.center.lat}
                         lng={this.props.center.lng}
@@ -46,10 +50,15 @@ class Maps extends Component {
                         lat={15.8700}
                         lng={100.9925}
                     />
+<<<<<<< HEAD
+=======
                     <Marker
                         lat={19.61921214756764}
                         lng={102.65882834190207}
                     /> */}
+
+
+>>>>>>> origin/main
                 </GoogleMapReact>
             </div>
         );

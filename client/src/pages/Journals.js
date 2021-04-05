@@ -6,46 +6,18 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
-
 import dayjs from 'dayjs';
-
-import GMaps from "../components/GMaps";
-// import GoogleMapReact from 'google-map-react';
+import GMaps from "../components/GMaps"
 
 const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
-
 
 function Journals() {
 
     let googleMap;
-    let i;
-
     const googleMapRef = useRef();
-    // Initialize and add the map
-
-
-
-    // let userListArr = [];
-    // let userListArr = [
-    //     {
-    //         "place": "The University of Texas at Austin",
-    //         // "latlang": (30.285159344585896, -97.73407849215118),
-    //         "lat": 30.285159344585896,
-    //         "lng": -97.73407849215118,
-    //     },
-    //     {
-    //         "place": "Franklin Barbecue",
-    //         "latlang": (30.27029481906284, -97.7313370539002),
-    //         "lat": 30.27029481906284,
-    //         "lng": -97.7313370539002,
-    //     },
-    // ];
-
-
 
     // Setting our component's initial state
     const [journals, setJournals] = useState([])
-    // const [journals, setJournals] = useState([{_id: "" , center: {lat: "", lng: ""}}])
     const [formObject, setFormObject] = useState({})
     const [latestPlace, setLatestPlace] = useState({})
 
@@ -63,91 +35,6 @@ function Journals() {
 
     }, [])
 
-    ///////////////////////////////////////////////////////////
-
-
-    // function initMap() {
-    //     const googleMap = new window.google.maps.Map(googleMapRef.current, {
-
-    //         // This will take effect when there are multiple places
-    //         zoom: 0,
-    //         // center: { lat: -25.344, lng: 131.036 },
-    //         // center: new google.maps.LatLng(37.0902, -95.7129)
-    //         // center: new window.google.maps.LatLng(37.0902, -95.7129)
-    //         mapTypeId: 'hybrid'
-    //     });
-
-    //     // Drop pins on all locations
-    //     const latlngbounds = new window.google.maps.LatLngBounds();
-
-    //     if (userListArr.length === 1) {
-    //         // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
-    //         const markerLocation = new window.google.maps.LatLng(
-    //             userListArr[0].lat,
-    //             userListArr[0].lang
-    //         );
-
-    //         const googleMap = new window.google.maps.Map(googleMapRef.current, {
-    //             zoom: 18,
-    //             mapTypeId: 'satellite',
-
-    //             // center: new window.google.maps.LatLng(37.0902, -95.7129)
-    //             center: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lang)
-
-    //         });
-
-    //         const marker = new window.google.maps.Marker({
-    //             map: googleMap,
-    //             // position: new window.google.maps.LatLng(37.0902, -95.7129),
-    //             position: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lang),
-    //         });
-
-    //     } else {
-
-    //         for (i = 0; i < userListArr.length; i++) {
-    //             // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
-    //             const markerLocation = new window.google.maps.LatLng(
-    //                 userListArr[i].lat,
-    //                 userListArr[i].lang
-    //             );
-
-    //             console.log(userListArr[i].lat);
-    //             console.log(userListArr[i].lang);
-
-    //             // eslint-disable-next-line no-unused-vars
-    //             const marker = new window.google.maps.Marker({
-    //                 // position: { lat: -25.344, lng: 131.036 },
-    //                 position: markerLocation,
-    //                 map: googleMap
-    //             });
-
-    //             console.log(`markerLocation=${markerLocation}`);
-
-    //             latlngbounds.extend(markerLocation);
-    //         }
-    //         // map.fitBounds(latlngbounds);
-    //         googleMap.fitBounds(latlngbounds);
-
-    //     }
-    // }
-
-    ///////////////////////////////////////////////////////////
-
-    const createGoogleMap = (coordinates) => {
-        console.log("under createGoogleMap");
-        googleMap = new window.google.maps.Map(googleMapRef.current, {
-            zoom: 6,
-            center: {
-                lat: coordinates.lat(),
-                lng: coordinates.lng(),
-            },
-            // DONT USE THIS MAP WILL DISAPPEAR
-                // lat: coordinates.lat(),
-                // lng: coordinates.lng(),
-            disableDefaultUI: true,
-        });
-    };
-
     // Loads all journals and sets them to journals
     function loadJournals() {
         API.getJournals()
@@ -155,13 +42,7 @@ function Journals() {
                 setJournals(res.data)
             )
             .catch(err => console.log(err));
-
-        // console.log(journals); // object empty here
-
     };
-
-    // console.log(journals); // object full here
-
 
     // Deletes a journal from the database with a given id, then reloads journals from the db
     function deleteJournal(id) {
@@ -176,8 +57,7 @@ function Journals() {
         setFormObject({ ...formObject, [name]: value })
     };
 
-    // When the form is submitted, use the API.saveJournal method to save the journal data
-    // Then reload journals from the database
+    // When the form is submitted, use the API.saveJournal method to save the journal data Then reload journals from the database
     function handleFormSubmit(event) {
         event.preventDefault();
         let lat, lng;
@@ -187,10 +67,6 @@ function Journals() {
                 console.log(`results[0].geometry.location ${results[0].geometry.location}`);
                 lat = results[0].geometry.location.lat();
                 lng = results[0].geometry.location.lng();
-                console.log(lat);
-                console.log(lng);
-
-                createGoogleMap(results[0].geometry.location);
 
                 new window.google.maps.Marker({
                     position: { lat, lng },
@@ -203,12 +79,6 @@ function Journals() {
 
                 // SAVE LATEST PLACE INTO JOURNAL DATABASE
                 if (formObject.place && formObject.date) {
-                    console.log(formObject.place);
-                    console.log(formObject.trip);
-                    console.log(formatted_date);
-                    console.log(formObject.placeDetail);
-                    console.log(lat);
-                    console.log(lng);
                     API.saveJournal({
                         trip: formObject.trip,
                         place: formObject.place,
@@ -220,42 +90,21 @@ function Journals() {
                         .then(res => loadJournals())
                         .catch(err => console.log(err));
                 }
-
-                // SET LATEST PLACE INPUT AS A VARIABLE
-                // setLatestPlace([{
-                //     "lat": lat,
-                //     "lng": lng,
-                //     "place": formObject.place,
-                // }]);
             }
         });
 
     }; // HANDLE SUBMIT
 
     console.log(journals);  // ARRAY OBJECT FULL HERE
-    // console.log(latestPlace);  // ARRAY OBJECT FULL HERE
-
-
 
     return (
         <Container fluid>
-
             <Row>
-
                 <Col size="md-9">
-
                     <Jumbotron>
                         <h1>Start Adding New Trip Here</h1>
                     </Jumbotron>
-
-                    {/* <GMaps userListArr={journals} /> */}
-                    {/* <GMaps userListArr={latestPlace} /> */}
-                    <div
-                        id="google-map"
-                        ref={googleMapRef}
-                        style={{ width: "100%", height: "300px" }}
-                    />
-
+                    <GMaps userListArr={journals} />
                     <form>
                         <Input
                             onChange={handleInputChange}
@@ -287,8 +136,6 @@ function Journals() {
                             Submit Journal
                         </FormBtn>
                     </form>
-
-
                 </Col>
 
 
@@ -296,7 +143,6 @@ function Journals() {
                     <Jumbotron>
                         <h1>Places On My List</h1>
                     </Jumbotron>
-
                     {journals.length ? (
                         <List>
                             {journals.map(journal => (
@@ -311,14 +157,10 @@ function Journals() {
                             ))}
                         </List>
                     ) : (
-                        <h3>No Results to Display</h3>
+                        <h3>Go explore the world around you</h3>
                     )}
-
-                    {/* <GMaps userListArr={journals} /> */}
                 </Col>
-
             </Row>
-
         </Container>
     )
 }
