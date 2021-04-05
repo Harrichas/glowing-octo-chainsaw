@@ -48,6 +48,11 @@ function Journals() {
         setFormObject({ ...formObject, [name]: value })
     };
 
+    function clearValue () {
+        document.getElementById("journal-form").reset();
+        setFormObject({});
+    }
+
     // When the form is submitted, use the API.saveJournal method to save the journal data
     // Then reload journals from the database
     function handleFormSubmit(event) {
@@ -76,7 +81,10 @@ function Journals() {
                             "lng": lng
                         }
                     })
-                        .then(res => loadJournals())
+                        .then(res => { 
+                            loadJournals();
+                            clearValue();
+                        })
                         .catch(err => console.log(err));
                 }
 
@@ -115,7 +123,7 @@ function Journals() {
                         <Maps id="map" center={latestPlace.center} place={latestPlace.place} journals={journals} />
                     </div>
 
-                    <form>
+                    <form id="journal-form">
                         <Input
                             onChange={handleInputChange}
                             name="trip"
