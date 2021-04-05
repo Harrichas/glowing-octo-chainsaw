@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
 
@@ -6,9 +6,9 @@ const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
 function GMaps({ userListArr }) {
 
     const googleMapRef = useRef();
-    let googleMap;
+    // let googleMap;
     let i;
-    console.log(userListArr);
+    // console.log(userListArr);
 
     // LOAD GOOGLE MAPS
     const googleMapScript = document.createElement("script");
@@ -41,6 +41,7 @@ function GMaps({ userListArr }) {
         if (userListArr.length === 1) {
             console.log(userListArr);
             // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
+            // eslint-disable-next-line no-unused-vars
             const markerLocation = new window.google.maps.LatLng(
                 userListArr[0].lat,
                 userListArr[0].lng
@@ -56,6 +57,7 @@ function GMaps({ userListArr }) {
                 center: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lng)
             });
 
+            // eslint-disable-next-line no-unused-vars
             const marker = new window.google.maps.Marker({
                 map: googleMap,
                 // position: new window.google.maps.LatLng(37.0902, -95.7129),

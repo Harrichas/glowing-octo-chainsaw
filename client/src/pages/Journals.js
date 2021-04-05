@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
@@ -14,12 +14,12 @@ const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
 function Journals() {
 
     let googleMap;
-    const googleMapRef = useRef();
+    // const googleMapRef = useRef();
 
     // Setting our component's initial state
     const [journals, setJournals] = useState([])
     const [formObject, setFormObject] = useState({})
-    const [latestPlace, setLatestPlace] = useState({})
+    // const [latestPlace, setLatestPlace] = useState({})
 
     // Load all journals and store them with setJournals
     useEffect(() => {

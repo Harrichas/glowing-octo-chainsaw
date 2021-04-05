@@ -3,9 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
-
-import Maps from "../components/Maps";
-import { List } from "../components/List";
 import GMaps from "../components/GMaps"
 
 // const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
@@ -20,12 +17,13 @@ function Detail() {
     API.getJournal(id)
       .then(res => setClickPlace(res.data))
       .catch(err => console.log(err));
+        // eslint-disable-next-line
   }, [])
 
   // console.log(`Details.js clickPlace.lat=${clickPlace.lat}`)
   // console.log(`Details.js clickPlace.lng=${clickPlace.lng}`)
 
-  console.log(clickPlace);
+  // console.log(clickPlace);
   const singlePlace = [
     {
       "place": clickPlace.place,
