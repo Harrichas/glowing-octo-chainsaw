@@ -59,6 +59,7 @@ function Journals() {
         googleMapScript.async = true;
         window.document.body.appendChild(googleMapScript);
         googleMapScript.addEventListener("load", () => {
+            initMap(userListArr)
         });
 
     }, [])
@@ -66,70 +67,70 @@ function Journals() {
 ///////////////////////////////////////////////////////////
 
 
-    // function initMap() {
-    //     const googleMap = new window.google.maps.Map(googleMapRef.current, {
+    function initMap() {
+        const googleMap = new window.google.maps.Map(googleMapRef.current, {
 
-    //         // This will take effect when there are multiple places
-    //         zoom: 0,
-    //         // center: { lat: -25.344, lng: 131.036 },
-    //         // center: new google.maps.LatLng(37.0902, -95.7129)
-    //         // center: new window.google.maps.LatLng(37.0902, -95.7129)
-    //         mapTypeId: 'hybrid'
-    //     });
+            // This will take effect when there are multiple places
+            zoom: 0,
+            // center: { lat: -25.344, lng: 131.036 },
+            // center: new google.maps.LatLng(37.0902, -95.7129)
+            // center: new window.google.maps.LatLng(37.0902, -95.7129)
+            mapTypeId: 'hybrid'
+        });
 
-    //     // Drop pins on all locations
-    //     const latlngbounds = new window.google.maps.LatLngBounds();
+        // Drop pins on all locations
+        const latlngbounds = new window.google.maps.LatLngBounds();
 
-    //     if (userListArr.length === 1) {
-    //         // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
-    //         const markerLocation = new window.google.maps.LatLng(
-    //             userListArr[0].lat,
-    //             userListArr[0].lang
-    //         );
+        if (userListArr.length === 1) {
+            // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
+            const markerLocation = new window.google.maps.LatLng(
+                userListArr[0].lat,
+                userListArr[0].lang
+            );
 
-    //         const googleMap = new window.google.maps.Map(googleMapRef.current, {
-    //             zoom: 18,
-    //             mapTypeId: 'satellite',
+            const googleMap = new window.google.maps.Map(googleMapRef.current, {
+                zoom: 18,
+                mapTypeId: 'satellite',
 
-    //             // center: new window.google.maps.LatLng(37.0902, -95.7129)
-    //             center: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lang)
+                // center: new window.google.maps.LatLng(37.0902, -95.7129)
+                center: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lang)
 
-    //         });
+            });
 
-    //         const marker = new window.google.maps.Marker({
-    //             map: googleMap,
-    //             // position: new window.google.maps.LatLng(37.0902, -95.7129),
-    //             position: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lang),
-    //         });
+            const marker = new window.google.maps.Marker({
+                map: googleMap,
+                // position: new window.google.maps.LatLng(37.0902, -95.7129),
+                position: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lang),
+            });
 
-    //     } else {
+        } else {
 
-    //         for (i = 0; i < userListArr.length; i++) {
-    //             // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
-    //             const markerLocation = new window.google.maps.LatLng(
-    //                 userListArr[i].lat,
-    //                 userListArr[i].lang
-    //             );
+            for (i = 0; i < userListArr.length; i++) {
+                // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
+                const markerLocation = new window.google.maps.LatLng(
+                    userListArr[i].lat,
+                    userListArr[i].lang
+                );
 
-    //             console.log(userListArr[i].lat);
-    //             console.log(userListArr[i].lang);
+                console.log(userListArr[i].lat);
+                console.log(userListArr[i].lang);
 
-    //             // eslint-disable-next-line no-unused-vars
-    //             const marker = new window.google.maps.Marker({
-    //                 // position: { lat: -25.344, lng: 131.036 },
-    //                 position: markerLocation,
-    //                 map: googleMap
-    //             });
+                // eslint-disable-next-line no-unused-vars
+                const marker = new window.google.maps.Marker({
+                    // position: { lat: -25.344, lng: 131.036 },
+                    position: markerLocation,
+                    map: googleMap
+                });
 
-    //             console.log(`markerLocation=${markerLocation}`);
+                console.log(`markerLocation=${markerLocation}`);
 
-    //             latlngbounds.extend(markerLocation);
-    //         }
-    //         // map.fitBounds(latlngbounds);
-    //         googleMap.fitBounds(latlngbounds);
+                latlngbounds.extend(markerLocation);
+            }
+            // map.fitBounds(latlngbounds);
+            googleMap.fitBounds(latlngbounds);
 
-    //     }
-    // }
+        }
+    }
 
 ///////////////////////////////////////////////////////////
 
@@ -230,7 +231,6 @@ function Journals() {
     }; // HANDLE SUBMIT
 
     console.log(journals);  // ARRAY OBJECT FULL HERE
-    console.log(latestPlace);  // ARRAY OBJECT FULL HERE
 
 
 
@@ -245,12 +245,12 @@ function Journals() {
                         <h1>Start Adding New Trip Here</h1>
                     </Jumbotron>
 
-                    {/* <GMaps journals={journals} /> */}
-                    <div
+                    <GMaps journals={journals} />
+                    {/* <div
                         id="google-map"
                         ref={googleMapRef}
                         style={{ width: "100%", height: "300px" }}
-                    />
+                    /> */}
 
                     <form>
                         <Input
