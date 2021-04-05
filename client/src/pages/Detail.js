@@ -28,23 +28,27 @@ function Detail() {
 
   }, [])
 
-  // console.log(clickPlace);
-  // console.log(`Details.js clickPlace.place=${clickPlace.place}`)
-  // console.log(`Details.js clickPlace.center.lat=${clickPlace.center.lat}`)
-  // console.log(`Details.js clickPlace.center.lng=${clickPlace.center.lng}`)
+  console.log(clickPlace);
+  console.log(`Details.js clickPlace.place=${clickPlace.place}`)
+  console.log(`Details.js clickPlace.center.lat=${clickPlace.center.lat}`)
+  console.log(`Details.js clickPlace.center.lng=${clickPlace.center.lng}`)
+  console.log(clickPlace.center.lat);
+  console.log(clickPlace.center.lng);
 
   const singlePlace = [
     
     {
     "place": clickPlace.place,
     "lat": clickPlace.center.lat,
-    "lng": clickPlace.center.lng,
+    "lang": clickPlace.center.lng,
+    // "lat": 15.870032,
+    // "lang": 100.992541,
     },
-    // {
-    //   "place": "Singapore",
-    //   "lat": 1.1796035905923454,
-    //   "lng": 103.49073752721172,
-    //  },
+  //   // {
+  //   //   "place": "Singapore",
+  //   //   "lat": 1.1796035905923454,
+  //   //   "lang": 103.49073752721172,
+  //   //  },
   ]
 
   return (
@@ -61,7 +65,10 @@ function Detail() {
           </Jumbotron>
 
           {/* <Maps id="map" center={clickPlace.center} place={clickPlace.place} /> */}
+          {/* <GMaps center={clickPlace.center} place={clickPlace.place} /> */}
           <GMaps userListArr={singlePlace} />
+
+
 
         </Col>
       </Row>

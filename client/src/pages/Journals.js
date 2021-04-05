@@ -31,13 +31,13 @@ function Journals() {
             "place": "The University of Texas at Austin",
             // "latlang": (30.285159344585896, -97.73407849215118),
             "lat": 30.285159344585896,
-            "lng": -97.73407849215118,
+            "lang": -97.73407849215118,
         },
         {
             "place": "Franklin Barbecue",
             "latlang": (30.27029481906284, -97.7313370539002),
             "lat": 30.27029481906284,
-            "lng": -97.7313370539002,
+            "lang": -97.7313370539002,
         },
     ];
 
@@ -47,7 +47,7 @@ function Journals() {
     const [journals, setJournals] = useState([])
     // const [journals, setJournals] = useState([{_id: "" , center: {lat: "", lng: ""}}])
     const [formObject, setFormObject] = useState({})
-    const [latestPlace, setLatestPlace] = useState([])
+    const [latestPlace, setLatestPlace] = useState({})
 
     // Load all journals and store them with setJournals
     useEffect(() => {
@@ -207,23 +207,23 @@ function Journals() {
                         place: formObject.place,
                         date: formatted_date,
                         placeDetail: formObject.placeDetail,
-                        // center: {
-                        //     "lat": lat,
-                        //     "lng": lng
-                        // }
-                        "lat": lat,
-                        "lng": lng,
+                        center: {
+                            "lat": lat,
+                            "lng": lng
+                        }
                     })
                         .then(res => loadJournals())
                         .catch(err => console.log(err));
                 }
 
                 // SET LATEST PLACE INPUT AS A VARIABLE
-                setLatestPlace([{
-                    "lat": lat,
-                    "lng": lng,
+                setLatestPlace({
+                    "center": {
+                        "lat": lat,
+                        "lng": lng,
+                    },
                     "place": formObject.place,
-                }]);
+                });
             }
         });
 
@@ -245,13 +245,12 @@ function Journals() {
                         <h1>Start Adding New Trip Here</h1>
                     </Jumbotron>
 
-                    <GMaps userListArr={journals} />
-                    {/* <GMaps userListArr={userListArr} /> */}
-                    {/* <div
+                    {/* <GMaps journals={journals} /> */}
+                    <div
                         id="google-map"
                         ref={googleMapRef}
                         style={{ width: "100%", height: "300px" }}
-                    /> */}
+                    />
 
                     <form>
                         <Input
