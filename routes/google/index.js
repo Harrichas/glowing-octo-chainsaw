@@ -15,7 +15,7 @@ router
     // Successful authentication redirect back to homepage
     //res.redirect('/journals');
     // axios.get("http://localhost:3000/journals");
-    res.writeHead(302, {Location: "http://localhost:3000/journals"});//!!!!!!! change to heroku
+    res.writeHead(302, {Location: "https://sheltered-plateau-62064.herokuapp.com/journals"});//!!!!!!! change to heroku
     res.end();
   });
 
