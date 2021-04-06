@@ -25,7 +25,7 @@ router
   .get(isUserLoggedIn, (req, res) => {
     req.logout();
     res.clearCookie("is_logged_in");
-    res.writeHead(302, {Location: "http://localhost:3000/journals"});//!!!!!!! change to heroku
+    res.writeHead(302, {Location: "https://sheltered-plateau-62064.herokuapp.com/"});//!!!!!!! change to heroku
     res.end();
 });
 
