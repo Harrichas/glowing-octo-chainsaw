@@ -43,7 +43,7 @@ a{
   
   /* Hide user profile on initial load, there is JS that will unhide when user logs in*/
   .header .menu .profile {
-    display: block;
+    display: none;
   }
   .header .menu .profile a {
     display: inline !important;
