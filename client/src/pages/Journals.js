@@ -14,11 +14,15 @@ import GMaps from "../components/GMaps"
 function Journals() {
 
     let googleMap;
+    let initialFormState = {trip: "",
+                            place: "",
+                            date: "",
+                            placeDetail: ""}
     // const googleMapRef = useRef();
 
     // Setting our component's initial state
     const [journals, setJournals] = useState([])
-    const [formObject, setFormObject] = useState({})
+    const [formObject, setFormObject] = useState(initialFormState)
     // const [latestPlace, setLatestPlace] = useState({})
 
     // Load all journals and store them with setJournals
@@ -52,8 +56,8 @@ function Journals() {
     }
 
     function clearValue () {
-        document.getElementById("journal-form").reset();
-        setFormObject({});
+        //document.getElementById("journal-form").reset();
+        setFormObject(initialFormState);
     }
 
     // Handles updating component state when the user types into the input field
@@ -118,24 +122,28 @@ function Journals() {
                             onChange={handleInputChange}
                             name="trip"
                             placeholder="add trip name (required)"
+                            value={formObject.trip}
                         />
                         <Input
                             disabled={!(formObject.trip)}
                             onChange={handleInputChange}
                             name="place"
                             placeholder="add place (required)"
+                            value= {formObject.place}
                         />
                         <Input
                             disabled={!(formObject.trip)}
                             onChange={handleInputChange}
                             type="date"
                             name="date"
+                            value= {formObject.date}
                         />
                         <TextArea
                             disabled={!(formObject.trip)}
                             onChange={handleInputChange}
                             name="placeDetail"
                             placeholder="Tell us about this place (required)"
+                            value= {formObject.placeDetail}
                         />
                         <FormBtn
                             disabled={!(formObject.trip && formObject.place && formObject.date && formObject.placeDetail)}
