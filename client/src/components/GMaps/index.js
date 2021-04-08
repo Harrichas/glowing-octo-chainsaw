@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
+// const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
+const GOOGLE_MAPS_API_KEY = "AIzaSyD3KGpziXLUe7Z_oxsS-v-yhtiB-qlqT_I"
+// const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 
 function GMaps({ userListArr }) {
@@ -33,25 +35,42 @@ function GMaps({ userListArr }) {
         const latlngbounds = new window.google.maps.LatLngBounds();
 
         // SINGLE LOCATION
-        console.log(`userListArr.length=${userListArr.length}`);
+        // console.log(`userListArr.length=${userListArr.length}`);
 
 
 
         // LANDING MAP AT US
-        if (userListArr.length === 1) {
-            console.log(userListArr);
+        if (userListArr.length === 0) {
+            // eslint-disable-next-line no-unused-vars
+            const markerLocation = new window.google.maps.LatLng(30.26680179555205, -97.744373710006)
+
+            const googleMap = new window.google.maps.Map(googleMapRef.current, {
+                zoom: 12,
+                mapTypeId: 'hybrid',
+                center: new window.google.maps.LatLng(30.26680179555205, -97.744373710006)
+            });
+
+            // eslint-disable-next-line no-unused-vars
+            const marker = new window.google.maps.Marker({
+                map: googleMap,
+                position: new window.google.maps.LatLng(30.26680179555205, -97.744373710006),
+                title: "Austin, TX",
+
+            });
+
+            // MULTIPLE LOCATIONS
+        } else if (userListArr.length === 1) {
+            // console.log(userListArr);            
             // const markerLocation = new window.google.maps.LatLng(37.0902, -95.7129)
             // eslint-disable-next-line no-unused-vars
             const markerLocation = new window.google.maps.LatLng(
                 userListArr[0].lat,
                 userListArr[0].lng
             );
-
-            console.log(userListArr[0].lat);
-            console.log(userListArr[0].lng);
+            const title = userListArr[0].place;
 
             const googleMap = new window.google.maps.Map(googleMapRef.current, {
-                zoom: 19,
+                zoom: 17,
                 mapTypeId: 'hybrid',
                 // center: new window.google.maps.LatLng(37.0902, -95.7129)
                 center: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lng)
@@ -62,6 +81,8 @@ function GMaps({ userListArr }) {
                 map: googleMap,
                 // position: new window.google.maps.LatLng(37.0902, -95.7129),
                 position: new window.google.maps.LatLng(userListArr[0].lat, userListArr[0].lng),
+                title: title,
+
             });
 
 
@@ -76,9 +97,6 @@ function GMaps({ userListArr }) {
                     userListArr[i].lng
                 );
                 const title = userListArr[i].place;
-
-                // console.log(userListArr[i].lat);
-                // console.log(userListArr[i].lng);
 
                 // eslint-disable-next-line no-unused-vars
                 const marker = new window.google.maps.Marker({
@@ -101,7 +119,7 @@ function GMaps({ userListArr }) {
         <div
             id="google-map"
             ref={googleMapRef}
-            style={{ width: "100%", height: "300px" }}
+            style={{ width: "100%", height: "600px" }}
         />
     )
 }
