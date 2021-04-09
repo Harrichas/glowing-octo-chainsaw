@@ -7,21 +7,24 @@ router.route("/")
     scope: ['profile', 'email']
   }));
 
-router
-  .route("/callback")
+router.route("/callback")
   .get(passport.authenticate('google', {
     failureRedirect: '/failed'
   }), function (req, res) {
     // Successful authentication redirect back to homepage
     //res.redirect('/journals');
     // axios.get("http://localhost:3000/journals");
+
+    // Thammarak to verify if receive user data from google
+    // res.send(req.user);
+
+    // Calvin passed cookies keys 1 and 2 redirect back to main homepage which is journals
     res.cookie("is_logged_in", "yes");
     res.writeHead(302, {Location: `${process.env.REACT_APP_URL}/journals`});//!!!!!!! change to heroku
     res.end();
   });
 
-router
-  .route("/logout")
+router.route("/logout")
   .get(isUserLoggedIn, (req, res) => {
     req.logout();
     res.clearCookie("is_logged_in");
