@@ -21,11 +21,11 @@ if (process.env.NODE_ENV === "production") {
 
 // cookie session middleware // from document 
 app.use(cookieSession({
-  name: 'check-seesion',
-    keys: ['key1', 'key2']
+  name: 'check-session',
+  keys: ['key1', 'key2']
 }));
 
-//  passport and passport sessions are intilized here and these are middlewere functions
+//  passport and passport sessions are initialized here and these are middleware functions
 app.use(passport.initialize());
 app.use(passport.session());
 

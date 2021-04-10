@@ -13,7 +13,12 @@ const UserSchema = new Schema({
   },
   jwtToken: String,
   accessToken: String,
-  googleId: String
+  googleId: String,
+  // googleId: {
+  //   type: String,
+  //   unique: true
+  // },
+  avatar: String,
 });
 
 const User = mongoose.model("User", UserSchema);

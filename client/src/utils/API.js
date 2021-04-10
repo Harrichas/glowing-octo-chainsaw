@@ -20,4 +20,7 @@ export default {
   checkLogin: function() {
     return axios.post("/google/check_login");
   },
+  getUsers: function() {
+    return axios.get("/api/users");
+  },
 };

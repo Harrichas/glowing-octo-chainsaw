@@ -5,7 +5,6 @@ import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import GMaps from "../components/GMaps"
 
-// const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
 
 function Detail() {
   const singlePlace = 
@@ -23,7 +22,7 @@ function Detail() {
   const { id } = useParams()
   useEffect(() => {
     API.getJournal(id)
-      .then(res => setClickPlace(res.data [0]))
+      .then(res => setClickPlace(res.data[0]))
       .catch(err => console.log(err));
         // eslint-disable-next-line
   }, [])

@@ -9,7 +9,9 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 import dayjs from 'dayjs';
 import GMaps from "../components/GMaps"
 
-// const GOOGLE_MAPS_API_KEY = "AIzaSyAX5jbsLY_jCzc3r7ljL-b62ISJ0Er1MM0"
+// Thamma for user
+import GUser from "../components/GUser"
+
 
 function Journals() {
 
@@ -18,7 +20,6 @@ function Journals() {
                             place: "",
                             date: "",
                             placeDetail: ""}
-    // const googleMapRef = useRef();
 
     // Setting our component's initial state
     const [journals, setJournals] = useState([])
@@ -28,14 +29,6 @@ function Journals() {
     // Load all journals and store them with setJournals
     useEffect(() => {
         loadJournals()
-
-        // LOAD GOOGLE MAPS
-        // const googleMapScript = document.createElement("script");
-        // googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
-        // googleMapScript.async = true;
-        // window.document.body.appendChild(googleMapScript);
-        // googleMapScript.addEventListener("load", () => {
-        // });
 
     }, [])
 
@@ -56,7 +49,6 @@ function Journals() {
     }
 
     function clearValue () {
-        //document.getElementById("journal-form").reset();
         setFormObject(initialFormState);
     }
 
@@ -116,6 +108,9 @@ function Journals() {
                     <Jumbotron>
                         <h1>Start Adding New Trip Here</h1>
                     </Jumbotron>
+
+                    <GUser/>
+
                     <GMaps userListArr={journals} />
                     <form id="journal-form">
                         <Input
