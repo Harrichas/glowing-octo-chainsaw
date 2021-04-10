@@ -9,13 +9,13 @@ function Nav() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(AuthManager.isAuthenticated());
 
   return (
-    <header className="header" style={{ height: 180, clear: "both", textAlign: "center" , paddingRight: 0}}>
+    <header className="header nav-bar" style={{ height: 180, clear: "both", textAlign: "center" , paddingRight: 0}}>
       {
         isUserLoggedIn ?
         <GUser/> : <div style={{ margin: 15, width: 0}}/>
       }
-      <a href="/" className="logo">
-        <h1>LET'S GO PLACES!</h1>
+      <a href="/" className="navbar">
+        <h1>let's go places.</h1>
       </a>
       <label className="menu-icon" for="menu-btn"><span className="nav-icon"></span></label>
       <ul className="menu">

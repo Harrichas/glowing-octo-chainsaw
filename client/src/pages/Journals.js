@@ -106,7 +106,7 @@ function Journals() {
             <Row>
                 <Col size="md-9">
                     <Jumbotron>
-                        <h1>Start Adding New Trip Here</h1>
+                        <h1>Where have you been?</h1>
                     </Jumbotron>
 
                     {/* <GUser/> */}
@@ -152,9 +152,12 @@ function Journals() {
 
                 <Col size="md-3 sm-12">
                     <Jumbotron>
+                        <div className='places'>
                         <h1>Places On My List</h1>
+                        </div>
                     </Jumbotron>
                     {journals.length ? (
+                        <div className='list'>
                         <List>
                             {journals.map(journal => (
                                 <ListItem key={journal._id}>
@@ -167,6 +170,7 @@ function Journals() {
                                 </ListItem>
                             ))}
                         </List>
+                        </div>
                     ) : (
                         <h3>Go explore the world around you</h3>
                     )}

@@ -3,12 +3,10 @@ a{
   }
   
   .header{
-    background-color: rgba(0, 0, 0, .075);
+    background-color: #f2dec5;
     box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
     width: 100%;
     z-index:3;
-    display:flex;
-    justify-content: space-evenly;
   }
   
   .header ul{
@@ -30,30 +28,28 @@ a{
     background-color: #ddd;
   }
   
-  .header .logo h1{
-    float: center;
+  .header .logo{
+    float: left;
     display: block;
-    margin-top: 60px;
     font-size: 2em;
     padding: 10px 20px;
   }
   
   .header .menu{
     clear: both;
-    max-height: 30px;
-    margin-top: 70px;
+    max-height: 0;
     transition: max-height .2s ease-out;
   }
   
   /* Hide user profile on initial load, there is JS that will unhide when user logs in*/
   .header .menu .profile {
-    display: block;
+    display: none;
   }
   .header .menu .profile a {
     display: inline !important;
     border-right:none;
     position: relative;
-    bottom: 1px;
+    bottom: 15px;
   }
   .header .menu .profile img {
     border-radius: 100%;
@@ -67,7 +63,7 @@ a{
     cursor: pointer;
   }
   
-  /* .header .menu-icon .nav-icon{
+  .header .menu-icon .nav-icon{
     background: #333;
     display: block;
     height: 2px;
@@ -96,9 +92,9 @@ a{
     position: absolute;
     transition: all .2s ease-out;
     top: -5px;
-  } */
+  }
   
-  /* .header .menu-btn{
+  .header .menu-btn{
     display: none;
   }
   
@@ -119,9 +115,6 @@ a{
     transform: rotate(45deg);
     top: 0;
   }
-
-
-  } */
   
   @media(min-width: 996px) {
     .header li {
@@ -133,19 +126,19 @@ a{
     .header .menu{
       clear: none;
       float: right;
+      max-height: none;
     }
     .header .menu-icon{
       display: none;
     }
   }
 
-  .header .title {
-    font-size: 4rem;
+  .user {
+    display: inline;
   }
 
-  .nav-bar {
-    display: flex;
-    align-items: center;
-    justify-content: between;
-    margin: auto;
+  .userImg {
+    padding-bottom: 4rem;
+    padding-top: 2rem;
+    height: 15rem;
   }

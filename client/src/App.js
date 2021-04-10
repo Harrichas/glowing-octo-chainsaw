@@ -12,9 +12,8 @@ function App() {
   return (
     <Router>
       <div>
-
-        <Nav />
-
+        <Nav>
+        </Nav>
         <Switch>
 
 
