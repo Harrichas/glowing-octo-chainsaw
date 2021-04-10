@@ -1,6 +1,7 @@
 import React, {useState} from "react" ;
 import "./style.css";
 import AuthManager from "../../utils/AuthManager";
+import GUser from "../GUser"
 
 function Nav() {
 
@@ -8,11 +9,11 @@ function Nav() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(AuthManager.isAuthenticated());
 
   return (
-    <header className="header" style={{ height: 150, clear: "both", paddingTop: 40, textAlign: "center" , paddingRight: 0}}>
-      <a href="/" className="navbar-brand">
+    <header className="header" style={{ height: 180, clear: "both", textAlign: "center" , paddingRight: 0}}>
+      <GUser/>
+      <a href="/" className="logo">
         <h1>LET'S GO PLACES!</h1>
       </a>
-      <input className="menu-btn" type="checkbox" id="menu-btn"/>
       <label className="menu-icon" for="menu-btn"><span className="nav-icon"></span></label>
       <ul className="menu">
         <li className="profile">
