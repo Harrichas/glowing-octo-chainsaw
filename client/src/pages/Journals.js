@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import GMaps from "../components/GMaps"
 
 // Thamma for user
-import GUser from "../components/GUser"
+// import GUser from "../components/GUser"
 
 
 function Journals() {
@@ -106,10 +106,10 @@ function Journals() {
             <Row>
                 <Col size="md-9">
                     <Jumbotron>
-                        <h1>Where have you been,</h1>
+                        <h1>Where have you been?</h1>
                     </Jumbotron>
 
-                    <GUser/>
+                    {/* <GUser/> */}
 
                     <GMaps userListArr={journals} />
                     <form id="journal-form">
