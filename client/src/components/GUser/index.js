@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./style.css";
+
 
 import API from "../../utils/API";
 
@@ -26,14 +26,15 @@ function GUser() {
 
   let style = {
     margin: '20px',
+    
 
   }
 
   return (
-    <div style={style}>
+    <div style={style} className="info">
 
       <h1>{loginUser.username}</h1>
-      <img src={loginUser.avatar} alt=""/>
+      <img src={loginUser.avatar} alt="profile pic"/>
 
     </div>
 
