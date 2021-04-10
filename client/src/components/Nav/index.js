@@ -13,7 +13,7 @@ function Nav() {
         <h1>LET'S GO PLACES!</h1>
       </a>
       <input className="menu-btn" type="checkbox" id="menu-btn"/>
-      <label className="menu-icon" id="menu-btn"><span className="nav-icon"></span></label>
+      <label className="menu-icon" for="menu-btn"><span className="nav-icon"></span></label>
       <ul className="menu">
         <li className="profile">
           {
