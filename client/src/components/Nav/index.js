@@ -10,7 +10,10 @@ function Nav() {
 
   return (
     <header className="header" style={{ height: 180, clear: "both", textAlign: "center" , paddingRight: 0}}>
-      <GUser/>
+      {
+        isUserLoggedIn ?
+        <GUser/> : <div style={{ margin: 15, width: 0}}/>
+      }
       <a href="/" className="logo">
         <h1>LET'S GO PLACES!</h1>
       </a>
@@ -20,8 +23,7 @@ function Nav() {
           {
             isUserLoggedIn ?
             <>
-              <a href="http://localhost:3001/google/logout">Logout</a>
-              <img src="" alt=""/>
+              <a href="https://sheltered-plateau-62064.herokuapp.com/google/logout">Logout</a>
             </> : ""
           }
 
