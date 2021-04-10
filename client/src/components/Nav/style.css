@@ -118,18 +118,10 @@ a{
   .header .menu-btn:checked ~ .menu-icon .nav-icon:after{
     transform: rotate(45deg);
     top: 0;
-<<<<<<< HEAD
   }
 
-  .nav-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-  }
-=======
+
   } */
->>>>>>> 25a9bcbc14a20c8ffb931b9e573c223368a3aace
   
   @media(min-width: 996px) {
     .header li {
@@ -149,4 +141,11 @@ a{
 
   .header .title {
     font-size: 4rem;
+  }
+
+  .nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: between;
+    margin: auto;
   }
