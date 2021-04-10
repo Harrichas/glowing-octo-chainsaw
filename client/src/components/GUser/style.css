@@ -132,3 +132,13 @@ a{
       display: none;
     }
   }
+
+  .user {
+    display: inline;
+  }
+
+  .userImg {
+    padding-bottom: 4rem;
+    padding-top: 2rem;
+    height: 15rem;
+  }

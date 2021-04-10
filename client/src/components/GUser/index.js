@@ -30,10 +30,9 @@ function GUser() {
   }
 
   return (
-    <div style={style}>
-
-      <h1>{loginUser.username}</h1>
-      <img src={loginUser.avatar} alt=""/>
+    <div style={style} className="user">
+      <h1>{loginUser.username}?</h1>
+      <img src={loginUser.avatar} alt="" class="userImg"/>
 
     </div>
 

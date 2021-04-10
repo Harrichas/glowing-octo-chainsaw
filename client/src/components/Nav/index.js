@@ -9,8 +9,8 @@ function Nav() {
 
   return (
     <header className="header" style={{ height: 150, clear: "both", paddingTop: 40, textAlign: "center" , paddingRight: 0}}>
-      <a href="/" className="navbar-brand">
-        <h1>LET'S GO PLACES!</h1>
+      <a href="/" className="nav-bar">
+        <h1 className='title'>let's go places.</h1>
       </a>
       <input className="menu-btn" type="checkbox" id="menu-btn"/>
       <label className="menu-icon" for="menu-btn"><span className="nav-icon"></span></label>
