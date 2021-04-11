@@ -32,6 +32,8 @@ No matter where you are or who you're with Let’s Go Places is right there with
 
 ## Snapshot
 
+![image](https://user-images.githubusercontent.com/70359225/114305265-fc18ee00-9a9c-11eb-8b78-edd0c4ac3159.png)
+
 
 ## Authors and acknowledgment
 
@@ -41,6 +43,8 @@ No matter where you are or who you're with Let’s Go Places is right there with
 
 
 ## Links
+
+[Deployed App Heroku] (https://sheltered-plateau-62064.herokuapp.com/)
 
 
 
