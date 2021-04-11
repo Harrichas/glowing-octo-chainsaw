@@ -30,14 +30,33 @@ No matter where you are or who you're with Let’s Go Places is right there with
 * React-google-login
 * dayjs
 
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
+
 ## Snapshot
 
 ![image](https://user-images.githubusercontent.com/70359225/114305265-fc18ee00-9a9c-11eb-8b78-edd0c4ac3159.png)
 
 
 ## Authors and acknowledgment
+* Chase Harrington
+* Tesh Pital
+* Sterling Duke
+* Thammarack K
+* Andrew Adam-Gutierrez 
 
-##License
+## License
+none
 
 
 
